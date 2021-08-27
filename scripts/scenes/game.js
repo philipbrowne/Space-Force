@@ -48,20 +48,20 @@ class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'hero-running',
       frames: this.anims.generateFrameNumbers('hero-run-sheet'),
-      frameRate: 50,
+      frameRate: 40,
       repeat: -1,
     });
     this.anims.create({
       key: 'hero-jumping',
       frames: this.anims.generateFrameNumbers('hero-jump-sheet'),
-      frameRate: 25,
-      repeat: -1,
+      frameRate: 20,
+      repeat: 0,
     });
     this.anims.create({
       key: 'hero-falling',
       frames: this.anims.generateFrameNumbers('hero-fall-sheet'),
-      frameRate: 25,
-      repeat: -1,
+      frameRate: 5,
+      repeat: 0,
     });
     this.anims.create({
       key: 'hero-still',

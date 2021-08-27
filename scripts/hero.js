@@ -137,8 +137,19 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.animationPredicates[transition]()
       ) {
         this.animationState[transition]();
+        console.log(this.animationState.is('still'));
         break;
       }
+    }
+    // Establishing correct collision box size based on animation state
+    if (this.animationState.is('still')) {
+      this.body.setSize(50, 140);
+    } else if (this.animationState.is('running')) {
+      this.body.setSize(65, 140);
+    } else if (this.animationState.is('jumping')) {
+      this.body.setSize(70, 140);
+    } else if (this.animationState.is('falling')) {
+      this.body.setSize(70, 140);
     }
   }
 }
