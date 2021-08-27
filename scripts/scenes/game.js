@@ -6,6 +6,11 @@ class GameScene extends Phaser.Scene {
   init(data) {}
 
   preload() {
+    this.load.tilemapTiledJSON(
+      'space-station',
+      'assets/tilemaps/tile-day-8.json'
+    );
+    this.load.image('space-station-sheet', 'assets/tilesets/space-station.png');
     this.load.spritesheet(
       'hero-run-sheet',
       'assets/hero/hero-run/hero-run-140px.png',
@@ -69,18 +74,41 @@ class GameScene extends Phaser.Scene {
       frameRate: 30,
       repeat: -1,
     });
+    this.addMap();
+    this.addHero();
 
-    this.hero = new Hero(this, 250, 160);
-    const pf = this.add.rectangle(533, 745, 300, 20, 0x4bcb7c);
-    this.physics.add.existing(pf, true);
-    const pf2 = this.add.rectangle(660, 670, 300, 20, 0x4bcb7c);
-    this.physics.add.existing(pf2, true);
-    const pf3 = this.add.rectangle(850, 750, 200, 20, 0x4bcb7c);
-    this.physics.add.existing(pf3, true);
-    this.physics.add.collider(this.hero, pf);
-    this.physics.add.collider(this.hero, pf2);
-    this.physics.add.collider(this.hero, pf3);
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels
+    );
+    this.cameras.main.startFollow(this.hero);
   }
 
+  addHero() {
+    this.hero = new Hero(this, 250, 160);
+    this.physics.add.collider(
+      this.hero,
+      this.map.getLayer('Ground').tilemapLayer
+    );
+  }
+
+  addMap() {
+    this.map = this.make.tilemap({ key: 'space-station' });
+    const groundTiles = this.map.addTilesetImage(
+      'space-station',
+      'space-station-sheet'
+    );
+    const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
+    groundLayer.setCollision([5, 6, 7, 8], true);
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.map.widthInPixels,
+      this.map.heightInPixels
+    );
+    this.physics.world.setBoundsCollision(true, true, false, true);
+  }
   update(time, delta) {}
 }

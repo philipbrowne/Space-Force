@@ -137,7 +137,6 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.animationPredicates[transition]()
       ) {
         this.animationState[transition]();
-        console.log(this.animationState.is('still'));
         break;
       }
     }
