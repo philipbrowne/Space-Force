@@ -16,6 +16,24 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.dKey = scene.dKey;
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
+    this.movement();
+  }
+
+  //   https://github.com/jakesgordon/javascript-state-machine
+  movement() {
+    this.moveState = new StateMachine({
+      init: 'standing',
+      transitions: [
+        { name: 'jump', from: 'standing', to: 'jumping' },
+        { name: 'fall', from: 'standing', to: 'falling' },
+        { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
+      ],
+      methods: {
+        onJump: () => {
+          this.body.setVelocityY(-400);
+        },
+      },
+    });
   }
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
