@@ -14,7 +14,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 750 },
+      gravity: { y: 700 },
       debug: false,
       debugShowVelocity: true,
       debugShowBody: true,
