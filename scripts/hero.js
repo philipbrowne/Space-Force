@@ -16,6 +16,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.dKey = scene.dKey;
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
+    this.input = {};
     this.movement();
     this.jumpKey();
   }
@@ -42,7 +43,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     //   Establishing logic for each movement transition
     this.movePredicates = {
       jump: () => {
-        return this.jumpKey();
+        return this.input.pressedJump;
       },
       fall: () => {
         return !this.body.onFloor();
@@ -65,7 +66,7 @@ class Hero extends Phaser.GameObjects.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
-
+    this.input.pressedJump = this.jumpKey();
     if (this.dirKeys.left.isDown || this.aKey.isDown) {
       this.body.setAccelerationX(-1500);
       this.setFlipX(true);
@@ -77,8 +78,18 @@ class Hero extends Phaser.GameObjects.Sprite {
     } else {
       this.body.setAccelerationX(0);
     }
-    if (this.jumpKey() && this.body.onFloor()) {
+    if (this.input.didJump && this.body.onFloor()) {
       this.body.setVelocityY(-400);
+    }
+    // Determining which movement state is currently valid
+    for (let transition of this.moveState.transitions()) {
+      if (
+        transition in this.movePredicates &&
+        this.movePredicates[transition]()
+      ) {
+        this.moveState[transition]();
+        break;
+      }
     }
   }
 }
