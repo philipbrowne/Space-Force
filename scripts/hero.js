@@ -15,6 +15,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.aKey = scene.aKey;
     this.dKey = scene.dKey;
     this.wKey = scene.wKey;
+    this.spaceKey = scene.cursorKeys.space;
   }
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
@@ -29,6 +30,12 @@ class Hero extends Phaser.GameObjects.Sprite {
       this.body.offset.x = 20;
     } else {
       this.body.setAccelerationX(0);
+    }
+    const pressedUp = Phaser.Input.Keyboard.JustDown(this.dirKeys.up);
+    const pressedW = Phaser.Input.Keyboard.JustDown(this.wKey);
+    const pressedSpace = Phaser.Input.Keyboard.JustDown(this.spaceKey);
+    if ((pressedUp || pressedW || pressedSpace) && this.body.onFloor()) {
+      this.body.setVelocityY(-400);
     }
   }
 }
