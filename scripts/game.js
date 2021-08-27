@@ -242,7 +242,7 @@ class Game extends Phaser.Scene {
   }
 }
 
-const game = new Phaser.Game(
+const new_game = new Phaser.Game(
   Object.assign(config, {
     scene: [Game],
   })
