@@ -38,7 +38,12 @@ class Hero extends Phaser.GameObjects.Sprite {
         },
       },
     });
-    this.movePredicates;
+    //   Establishing logic for each movement transition
+    this.movePredicates = {
+      jump: () => {},
+      fall: () => {},
+      land: () => {},
+    };
   }
 
   preUpdate(time, delta) {
