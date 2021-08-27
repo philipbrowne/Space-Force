@@ -17,6 +17,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
     this.movement();
+    this.jumpKey();
   }
 
   //   https://github.com/jakesgordon/javascript-state-machine
@@ -40,10 +41,26 @@ class Hero extends Phaser.GameObjects.Sprite {
     });
     //   Establishing logic for each movement transition
     this.movePredicates = {
-      jump: () => {},
-      fall: () => {},
-      land: () => {},
+      jump: () => {
+        return this.jumpKey();
+      },
+      fall: () => {
+        return !this.body.onFloor();
+      },
+      land: () => {
+        return this.body.onFloor();
+      },
     };
+  }
+
+  jumpKey() {
+    if (
+      Phaser.Input.Keyboard.JustDown(this.dirKeys.up) ||
+      Phaser.Input.Keyboard.JustDown(this.wKey) ||
+      Phaser.Input.Keyboard.JustDown(this.spaceKey)
+    ) {
+      return true;
+    }
   }
 
   preUpdate(time, delta) {
@@ -60,10 +77,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     } else {
       this.body.setAccelerationX(0);
     }
-    const pressedUp = Phaser.Input.Keyboard.JustDown(this.dirKeys.up);
-    const pressedW = Phaser.Input.Keyboard.JustDown(this.wKey);
-    const pressedSpace = Phaser.Input.Keyboard.JustDown(this.spaceKey);
-    if ((pressedUp || pressedW || pressedSpace) && this.body.onFloor()) {
+    if (this.jumpKey() && this.body.onFloor()) {
       this.body.setVelocityY(-400);
     }
   }
