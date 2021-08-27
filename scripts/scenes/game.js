@@ -17,17 +17,17 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.aKey = this.input.keyboard.addKey('A');
+    this.dKey = this.input.keyboard.addKey('D');
+    this.wKey = this.input.keyboard.addKey('W');
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.anims.create({
       key: 'hero-running',
       frames: this.anims.generateFrameNumbers('hero-run-sheet'),
       frameRate: 50,
       repeat: -1,
     });
-
-    this.player = this.physics.add.sprite(400, 300, 'hero-run-sheet');
-    this.player.anims.play('hero-running');
-    this.player.body.setCollideWorldBounds(true);
-    this.player.body.setSize(65, 140);
+    this.hero = new Hero(this, 250, 160);
   }
 
   update(time, delta) {}
