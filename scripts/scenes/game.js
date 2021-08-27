@@ -28,6 +28,9 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
     this.hero = new Hero(this, 250, 160);
+    const platform = this.add.rectangle(220, 540, 260, 10, 0x4bcb7c);
+    this.physics.add.existing(platform, true);
+    this.physics.add.collider(this.hero, platform);
   }
 
   update(time, delta) {}
