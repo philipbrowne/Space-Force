@@ -19,6 +19,7 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    this.load.image('background', 'assets/backgrounds/mars-bg.png');
     this.load.spritesheet(
       'hero-jump-sheet',
       'assets/hero/hero-jump/hero-jump-140px.png',
@@ -46,6 +47,8 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
+    let bg = this.add.image(0, 0, 'background');
+    bg.setScrollFactor(0.2);
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
@@ -82,6 +85,7 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.cameras.main.startFollow(this.hero);
+    this.mainCam = this.cameras.cameras[0];
   }
 
   addHero() {
@@ -90,6 +94,13 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.map.getLayer('Ground').tilemapLayer
     );
+  }
+
+  getRelativePositionToCanvas(gameObject, camera) {
+    return {
+      x: (gameObj.x - camera.worldView.x) * camera.zoom,
+      y: (gameObj.y - camera.worldView.y) * camera.zoom,
+    };
   }
 
   addMap() {
@@ -114,4 +125,44 @@ class GameScene extends Phaser.Scene {
     });
   }
   update(time, delta) {}
+}
+
+class HealthBar {
+  constructor(
+    scene,
+    x,
+    y,
+    width,
+    height,
+    corFill,
+    corUnfill,
+    value,
+    singleDecreaseValue
+  ) {
+    this.minValue = 0;
+    this.maxValue = value;
+    this.corUnifll = corUnfill;
+    this.corFill = corFill;
+    this.arc1 = scene.add.arc(x, y, height, 270, 90, true, corFill, 1);
+    this.rectangles = new Array(this.rectangleNo);
+    var valueToAdd = width / this.rectangleNo;
+    for (let i = 0; i <= 17; i++) {
+      this.rectangles[i] = scene.add.rectangle(
+        x + valueToAdd * i,
+        y,
+        width / this.rectangleNo,
+        height * 2,
+        corFill,
+        1
+      );
+    }
+    this.arc2 = scene.add.arc(x + width, y, height, 270, 90, false, corFill, 1);
+    this.text = scene.add.text(x + width / 4, y + height * 2, '100/100', {
+      fontFamily: 'Arial',
+      fontSize: 25,
+      color: 0xffffff,
+    });
+
+    this.arc1.scrollFactor = 0;
+  }
 }

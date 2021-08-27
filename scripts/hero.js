@@ -16,6 +16,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.dKey = scene.dKey;
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
+    var hx = this.color === 'blue' ? 110 : -40;
     this.input = {};
     this.movement();
     this.animations();
