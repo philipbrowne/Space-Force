@@ -28,11 +28,11 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
     this.hero = new Hero(this, 250, 160);
-    const pf = this.add.rectangle(800, 1130, 300, 20, 0x4bcb7c);
+    const pf = this.add.rectangle(533, 745, 300, 20, 0x4bcb7c);
     this.physics.add.existing(pf, true);
-    const pf2 = this.add.rectangle(1000, 1030, 300, 20, 0x4bcb7c);
+    const pf2 = this.add.rectangle(660, 670, 300, 20, 0x4bcb7c);
     this.physics.add.existing(pf2, true);
-    const pf3 = this.add.rectangle(1300, 1130, 200, 20, 0x4bcb7c);
+    const pf3 = this.add.rectangle(850, 750, 200, 20, 0x4bcb7c);
     this.physics.add.existing(pf3, true);
     this.physics.add.collider(this.hero, pf);
     this.physics.add.collider(this.hero, pf2);
