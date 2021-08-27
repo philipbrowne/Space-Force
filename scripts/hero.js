@@ -79,7 +79,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       run: () => {
         return (
           this.body.onFloor() &&
-          Math.sign(this.body.velocity.x === (this.flipX ? -1 : 1))
+          Math.sign(this.body.velocity.x) === (this.flipX ? -1 : 1)
         );
       },
       //  If player is off the ground and going upward
@@ -127,6 +127,16 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.movePredicates[transition]()
       ) {
         this.moveState[transition]();
+        break;
+      }
+    }
+    // Determining which animation state is currently valid
+    for (let transition of this.animationState.transitions()) {
+      if (
+        transition in this.animationPredicates &&
+        this.animationPredicates[transition]()
+      ) {
+        this.animationState[transition]();
         break;
       }
     }
