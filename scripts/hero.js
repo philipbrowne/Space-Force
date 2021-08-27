@@ -20,6 +20,7 @@ class Hero extends Phaser.GameObjects.Sprite {
   }
 
   //   https://github.com/jakesgordon/javascript-state-machine
+  //   states of movement for hero character
   movement() {
     this.moveState = new StateMachine({
       init: 'standing',
@@ -29,12 +30,17 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
       ],
       methods: {
+        onEnterState: (lifecycle) => {
+          console.log(lifecycle);
+        },
         onJump: () => {
           this.body.setVelocityY(-400);
         },
       },
     });
+    this.movePredicates;
   }
+
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
