@@ -8,7 +8,7 @@ class GameScene extends Phaser.Scene {
   preload() {
     this.load.tilemapTiledJSON(
       'space-station',
-      'assets/tilemaps/tile-day-9.json'
+      'assets/tilemaps/tile-day-10.json'
     );
     this.load.image('space-station-sheet', 'assets/tilesets/space-station.png');
     this.load.spritesheet(
