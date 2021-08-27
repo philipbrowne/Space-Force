@@ -5,7 +5,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.anims.play('hero-running');
+    this.anims.play('hero-still');
     this.body.setCollideWorldBounds(true);
     this.body.setCollideWorldBounds(true);
     this.body.setSize(65, 140);
@@ -18,6 +18,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.spaceKey = scene.cursorKeys.space;
     this.input = {};
     this.movement();
+    this.animations();
     this.jumpKey();
   }
 
@@ -32,9 +33,6 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
       ],
       methods: {
-        onEnterState: (lifecycle) => {
-          console.log(lifecycle);
-        },
         onJump: () => {
           this.body.setVelocityY(-400);
         },
@@ -50,6 +48,47 @@ class Hero extends Phaser.GameObjects.Sprite {
       },
       land: () => {
         return this.body.onFloor();
+      },
+    };
+  }
+  // states of animation for hero character
+  animations() {
+    this.animationState = new StateMachine({
+      init: 'still',
+      transitions: [
+        { name: 'still', from: ['falling', 'running'], to: 'still' },
+        { name: 'run', from: ['still', 'falling'], to: 'running' },
+        { name: 'jump', from: ['still', 'running'], to: 'jumping' },
+        { name: 'fall', from: ['still', 'running', 'jumping'], to: 'falling' },
+      ],
+      methods: {
+        onEnterState: (lifecycle) => {
+          // plays animation from game.js file
+          this.anims.play(`hero-${lifecycle.to}`);
+          console.log(lifecycle);
+        },
+      },
+    });
+    //   Establishing logic for each animation transition
+    this.animationPredicates = {
+      // On Ground and not moving
+      still: () => {
+        return this.body.onFloor() && this.body.velocity.x === 0;
+      },
+      // On ground and moving - also determines whether to flip sprite based on whether velocity of X is Positive or Negative
+      run: () => {
+        return (
+          this.body.onFloor() &&
+          Math.sign(this.body.velocity.x === (this.flipX ? -1 : 1))
+        );
+      },
+      //  If player is off the ground and going upward
+      jump: () => {
+        return this.body.velocity.y < 0;
+      },
+      // If player is off the ground an going downward
+      fall: () => {
+        return this.body.velocity.y > 0;
       },
     };
   }
