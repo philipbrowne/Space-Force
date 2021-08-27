@@ -7,10 +7,10 @@ class Hero extends Phaser.GameObjects.Sprite {
 
     this.anims.play('hero-still');
     this.body.setCollideWorldBounds(true);
-    this.body.setCollideWorldBounds(true);
-    this.body.setSize(65, 140);
+    this.body.setSize(65, 130);
     this.body.setMaxVelocity(350, 500);
     this.body.setDragX(700);
+    this.setOrigin(0.5, 1);
     this.dirKeys = scene.cursorKeys;
     this.aKey = scene.aKey;
     this.dKey = scene.dKey;
@@ -79,7 +79,8 @@ class Hero extends Phaser.GameObjects.Sprite {
       run: () => {
         return (
           this.body.onFloor() &&
-          Math.sign(this.body.velocity.x) === (this.flipX ? -1 : 1)
+          Math.sign(this.body.velocity.x) === (this.flipX ? -1 : 1) &&
+          this.body.velocity.x !== 0
         );
       },
       //  If player is off the ground and going upward
@@ -117,7 +118,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     } else {
       this.body.setAccelerationX(0);
     }
-    if (this.input.didJump && this.body.onFloor()) {
+    if (this.input.pressedJump && this.body.onFloor()) {
       this.body.setVelocityY(-400);
     }
     // Determining which movement state is currently valid

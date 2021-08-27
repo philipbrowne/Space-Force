@@ -71,8 +71,6 @@ class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'hero-still',
       frames: this.anims.generateFrameNumbers('hero-still-sheet'),
-      frameRate: 30,
-      repeat: -1,
     });
     this.addMap();
     this.addHero();
@@ -87,7 +85,7 @@ class GameScene extends Phaser.Scene {
   }
 
   addHero() {
-    this.hero = new Hero(this, 250, 160);
+    this.hero = new Hero(this, this.startCoords.x, this.startCoords.y);
     this.physics.add.collider(
       this.hero,
       this.map.getLayer('Ground').tilemapLayer
@@ -109,6 +107,11 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.physics.world.setBoundsCollision(true, true, false, true);
+    this.map.getObjectLayer('Objects').objects.forEach((object) => {
+      if (object.name === 'Start') {
+        this.startCoords = { x: object.x, y: object.y };
+      }
+    });
   }
   update(time, delta) {}
 }
