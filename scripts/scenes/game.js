@@ -108,9 +108,17 @@ class GameScene extends Phaser.Scene {
 
   addHero() {
     this.hero = new Hero(this, this.startCoords.x, this.startCoords.y);
-    this.physics.add.collider(
+    const groundPhysics = this.physics.add.collider(
       this.hero,
       this.map.getLayer('Ground').tilemapLayer
+    );
+    // Triggers kill method when hero collides with any obstacle object
+    const obstaclePhysics = this.physics.add.overlap(
+      this.hero,
+      this.obstacles,
+      () => {
+        this.hero.kill();
+      }
     );
   }
 
@@ -135,7 +143,12 @@ class GameScene extends Phaser.Scene {
       this.map.widthInPixels,
       this.map.heightInPixels
     );
-    this.physics.world.setBoundsCollision(true, true, false, true);
+    const groundPhysics = this.physics.world.setBoundsCollision(
+      true,
+      true,
+      false,
+      true
+    );
     this.obstacles = this.physics.add.group({
       immovable: true,
       allowGravity: false,
@@ -156,9 +169,6 @@ class GameScene extends Phaser.Scene {
         obstacle.setOffset(5, 10);
       }
     });
-    setTimeout(() => {
-      this.hero.kill();
-    }, 3000);
   }
 
   update(time, delta) {}

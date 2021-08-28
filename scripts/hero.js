@@ -28,12 +28,14 @@ class Hero extends Phaser.GameObjects.Sprite {
   movement() {
     this.moveState = new StateMachine({
       init: 'standing',
+      // Valid movement states to transition to and from
       transitions: [
         { name: 'jump', from: 'standing', to: 'jumping' },
         { name: 'fall', from: 'standing', to: 'falling' },
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
-        { name: 'die', from: '*', to: 'dead' },
+        { name: 'die', from: ['standing', 'falling', 'jumping'], to: 'dead' },
       ],
+      // Movement side effects for jump and death
       methods: {
         onJump: () => {
           this.body.setVelocityY(-400);
@@ -62,6 +64,7 @@ class Hero extends Phaser.GameObjects.Sprite {
   animations() {
     this.animationState = new StateMachine({
       init: 'still',
+      // Valid animation states to transition to and from
       transitions: [
         { name: 'still', from: ['falling', 'running'], to: 'still' },
         { name: 'run', from: ['still', 'falling'], to: 'running' },
@@ -73,6 +76,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         onEnterState: (lifecycle) => {
           // plays animation from game.js file
           this.anims.play(`hero-${lifecycle.to}`);
+          // Prints current animation state in console for debugging purposes
           console.log(lifecycle);
         },
       },
@@ -101,7 +105,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       },
     };
   }
-
+  // Jump Inputs - more can be added in future
   jumpKey() {
     if (
       Phaser.Input.Keyboard.JustDown(this.dirKeys.up) ||
@@ -114,8 +118,12 @@ class Hero extends Phaser.GameObjects.Sprite {
 
   // Changes Movement and Animation State to Dead
   kill() {
-    this.moveState.die();
-    this.animationState.die();
+    // Determines if movement transition is valid based on this.movement() and emits 'died' event to trigger game callbacks
+    if (this.moveState.can('die')) {
+      this.moveState.die();
+      this.animationState.die();
+      this.emit('died');
+    }
   }
 
   // Creates a check for movement conditionals below
