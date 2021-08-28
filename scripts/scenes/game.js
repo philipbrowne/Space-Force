@@ -120,6 +120,15 @@ class GameScene extends Phaser.Scene {
         this.hero.kill();
       }
     );
+    // Triggered by kill event emission - removes colliders from this game.  Could be changed later with multiple lives, or health bar
+    this.hero.on('died', () => {
+      groundPhysics.destroy();
+      obstaclePhysics.destroy();
+      // Currently has hero fall off map upon death
+      this.hero.body.setCollideWorldBounds(false);
+      // Stops camera from following hero upon death
+      this.cameras.main.stopFollow();
+    });
   }
 
   getRelativePositionToCanvas(gameObject, camera) {
