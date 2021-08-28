@@ -102,12 +102,12 @@ class GameScene extends Phaser.Scene {
       this.map.widthInPixels,
       this.map.heightInPixels
     );
-    this.cameras.main.startFollow(this.hero);
     this.mainCam = this.cameras.cameras[0];
   }
 
   addHero() {
     this.hero = new Hero(this, this.startCoords.x, this.startCoords.y);
+    this.cameras.main.startFollow(this.hero);
     const groundPhysics = this.physics.add.collider(
       this.hero,
       this.map.getLayer('Ground').tilemapLayer
@@ -180,9 +180,20 @@ class GameScene extends Phaser.Scene {
     });
   }
 
-  update(time, delta) {}
-}
+  getHeroPosition() {
+    return {
+      x: this.hero.getBounds().x,
+      y: this.hero.getBounds().y,
+    };
+  }
 
+  update(time, delta) {
+    const bottomOfView = this.cameras.main.getWorldPoint(
+      0,
+      this.cameras.main.height
+    ).y;
+  }
+}
 class HealthBar {
   constructor(
     scene,
