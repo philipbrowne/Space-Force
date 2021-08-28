@@ -94,7 +94,7 @@ class GameScene extends Phaser.Scene {
       repeat: 0,
     });
 
-    this.gameHealth = 1.0;
+    this.gameHealth = 100;
 
     this.addMap();
     this.addHero();
@@ -121,7 +121,8 @@ class GameScene extends Phaser.Scene {
       this.obstacles,
       () => {
         this.hero.kill();
-        this.gameHealth -= 0.2;
+        this.gameHealth -= 25;
+        console.log(this.gameHealth);
       }
     );
     // Triggered by kill event emission - removes colliders from this game.  Could be changed later with multiple lives, or health bar
@@ -191,12 +192,22 @@ class GameScene extends Phaser.Scene {
     };
   }
 
+  endGame() {
+    const hud = game.scene.scenes[1];
+    hud.scene.stop();
+    const gameOverScene = game.scene.scenes[2];
+    const gameScene = game.scene.scenes[0];
+    gameScene.scene.stop();
+    game.scene.start(gameOverScene);
+  }
+
   update(time, delta) {
     const hud = game.scene.scenes[1];
-    hud.setMeterPercentageAnimated(this.gameHealth);
-    const gameOverScene = game.scene.scenes[2];
+    if (hud) {
+      hud.setMeterPercentageAnimated(this.gameHealth / 100);
+    }
     if (this.gameHealth === 0) {
-      gameOverScene.active = true;
+      setTimeout(this.endGame, 1500);
     }
     const bottomOfView = this.cameras.main.getWorldPoint(
       0,

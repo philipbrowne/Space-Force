@@ -6,7 +6,7 @@ class GameOverScene extends Phaser.Scene {
   preload() {}
   create() {
     var text = this.add
-      .text(640, 360, 'GAME OVER', {
+      .text(600, 400, 'GAME OVER', {
         fontSize: 200,
         color: '#FFFFFF',
         fontStyle: 'bold',
