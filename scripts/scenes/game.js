@@ -13,7 +13,7 @@ class GameScene extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
-    this.load.image('bg-sheet', 'assets/backgrounds/mars.png');
+    this.load.image('background', 'assets/backgrounds/mars.png');
 
     this.load.spritesheet(
       'hero-run-sheet',
@@ -61,6 +61,8 @@ class GameScene extends Phaser.Scene {
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
+    let bg = this.add.image(0, 0, 'background');
+    bg.setScrollFactor(0.2);
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.anims.create({
       key: 'hero-running',
@@ -190,12 +192,6 @@ class GameScene extends Phaser.Scene {
 
   addMap() {
     this.map = this.make.tilemap({ key: 'tileset' });
-    const backgroundTiles = this.map.addTilesetImage('mars', 'bg-sheet');
-    const backgroundLayer = this.map.createStaticLayer(
-      'Background',
-      backgroundTiles
-    );
-    backgroundLayer.setScrollFactor(0.5);
     const groundTiles = this.map.addTilesetImage('tileset', 'tile-sheet');
     const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
     groundLayer.setCollision(_.range(1, 9), true);
