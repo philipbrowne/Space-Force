@@ -32,10 +32,15 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'jump', from: 'standing', to: 'jumping' },
         { name: 'fall', from: 'standing', to: 'falling' },
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
+        { name: 'die', from: '*', to: 'dead' },
       ],
       methods: {
         onJump: () => {
           this.body.setVelocityY(-400);
+        },
+        onDie: () => {
+          this.body.setVelocity(0, -300);
+          this.body.setAcceleration(0);
         },
       },
     });
@@ -52,6 +57,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       },
     };
   }
+
   // states of animation for hero character
   animations() {
     this.animationState = new StateMachine({
@@ -61,6 +67,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'run', from: ['still', 'falling'], to: 'running' },
         { name: 'jump', from: ['still', 'running'], to: 'jumping' },
         { name: 'fall', from: ['still', 'running', 'jumping'], to: 'falling' },
+        { name: 'die', from: '*', to: 'dead' },
       ],
       methods: {
         onEnterState: (lifecycle) => {
@@ -105,14 +112,28 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
   }
 
+  // Changes Movement and Animation State to Dead
+  kill() {
+    this.moveState.die();
+    this.animationState.die();
+  }
+
+  // Creates a check for movement conditionals below
+  isDead() {
+    return this.moveState.is('dead');
+  }
+
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     this.input.pressedJump = this.jumpKey();
-    if (this.dirKeys.left.isDown || this.aKey.isDown) {
+    if (!this.isDead() && (this.dirKeys.left.isDown || this.aKey.isDown)) {
       this.body.setAccelerationX(-1500);
       this.setFlipX(true);
       this.body.offset.x = 25;
-    } else if (this.dirKeys.right.isDown || this.dKey.isDown) {
+    } else if (
+      !this.isDead() &&
+      (this.dirKeys.right.isDown || this.dKey.isDown)
+    ) {
       this.body.setAccelerationX(1500);
       this.setFlipX(false);
       this.body.offset.x = 20;
