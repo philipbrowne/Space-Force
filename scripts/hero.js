@@ -34,14 +34,14 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'jump', from: 'standing', to: 'jumping' },
         { name: 'fall', from: 'standing', to: 'falling' },
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
-        { name: 'die', from: ['standing', 'falling', 'jumping'], to: 'dead' },
+        { name: 'hurt', from: ['standing', 'falling', 'jumping'], to: 'hurt' },
       ],
       // Movement side effects for jump and death
       methods: {
         onJump: () => {
           this.body.setVelocityY(-400);
         },
-        onDie: () => {
+        onHurt: () => {
           this.body.setVelocity(0, -300);
           this.body.setAcceleration(0);
         },
@@ -71,7 +71,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'run', from: ['still', 'falling'], to: 'running' },
         { name: 'jump', from: ['still', 'running'], to: 'jumping' },
         { name: 'fall', from: ['still', 'running', 'jumping'], to: 'falling' },
-        { name: 'die', from: '*', to: 'dead' },
+        { name: 'hurt', from: '*', to: 'hurt' },
       ],
       methods: {
         onEnterState: (lifecycle) => {
@@ -117,31 +117,30 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
   }
 
-  // Changes Movement and Animation State to Dead
-  kill() {
-    // Determines if movement transition is valid based on this.movement() and emits 'died' event to trigger game callbacks
-    if (this.moveState.can('die')) {
-      this.moveState.die();
-      this.animationState.die();
-      this.emit('died');
+  // Changes Movement and Animation State to Hurt
+  hurt() {
+    // Determines if movement transition is valid based on this.movement() and emits 'hurt' event to trigger game callbacks
+    if (this.moveState.can('hurt')) {
+      this.moveState.hurt();
+      this.animationState.hurt();
+      this.emit('hurt');
     }
-    this.health -= 0.2;
   }
 
   // Creates a check for movement conditionals below
-  isDead() {
-    return this.moveState.is('dead');
+  isHurt() {
+    return this.moveState.is('hurt');
   }
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     this.input.pressedJump = this.jumpKey();
-    if (!this.isDead() && (this.dirKeys.left.isDown || this.aKey.isDown)) {
+    if (!this.isHurt() && (this.dirKeys.left.isDown || this.aKey.isDown)) {
       this.body.setAccelerationX(-1500);
       this.setFlipX(true);
       this.body.offset.x = 25;
     } else if (
-      !this.isDead() &&
+      !this.isHurt() &&
       (this.dirKeys.right.isDown || this.dKey.isDown)
     ) {
       this.body.setAccelerationX(1500);

@@ -49,8 +49,8 @@ class GameScene extends Phaser.Scene {
       }
     );
     this.load.spritesheet(
-      'hero-die-sheet',
-      'assets/hero/hero-die/hero-die-140px.png',
+      'hero-hurt-sheet',
+      'assets/hero/hero-hurt/hero-hurt-140px.png',
       {
         frameWidth: 125,
         frameHeight: 140,
@@ -88,8 +88,8 @@ class GameScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('hero-still-sheet'),
     });
     this.anims.create({
-      key: 'hero-dead',
-      frames: this.anims.generateFrameNumbers('hero-die-sheet'),
+      key: 'hero-hurt',
+      frames: this.anims.generateFrameNumbers('hero-hurt-sheet'),
       frameRate: 10,
       repeat: 0,
     });
@@ -115,23 +115,22 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.map.getLayer('Ground').tilemapLayer
     );
-    // Triggers kill method when hero collides with any obstacle object
+    // Triggers hurt method when hero collides with any obstacle object
     const obstaclePhysics = this.physics.add.overlap(
       this.hero,
       this.obstacles,
       () => {
-        this.hero.kill();
-        this.gameHealth -= 25;
-        console.log(this.gameHealth);
+        this.hero.hurt();
       }
     );
-    // Triggered by kill event emission - removes colliders from this game.  Could be changed later with multiple lives, or health bar
-    this.hero.on('died', () => {
+    // Triggered by hurt event emission - removes colliders from the current hero instance before respawning a new one. Deducts 25 points from gameHealth
+    this.hero.on('hurt', () => {
+      this.gameHealth -= 25;
       groundPhysics.destroy();
       obstaclePhysics.destroy();
-      // Currently has hero fall off map upon death
+      // Currently has hero fall off map when hurt
       this.hero.body.setCollideWorldBounds(false);
-      // Stops camera from following hero upon death
+      // Stops camera from following current hero instance when hurt
       this.cameras.main.stopFollow();
     });
   }
@@ -204,7 +203,7 @@ class GameScene extends Phaser.Scene {
   update(time, delta) {
     const hud = game.scene.scenes[1];
     if (hud) {
-      hud.setMeterPercentageAnimated(this.gameHealth / 100);
+      hud.setMeterPercentage(this.gameHealth / 100);
     }
     if (this.gameHealth === 0) {
       setTimeout(this.endGame, 1500);
@@ -213,8 +212,8 @@ class GameScene extends Phaser.Scene {
       0,
       this.cameras.main.height
     ).y;
-    // Destroy instance of hero and start new one upon death and once the hero has fallen off map
-    if (this.hero.isDead() && this.hero.getBounds().top > bottomOfView + 100) {
+    // Destroy instance of hero and start new one when hurt and once the hero has fallen off map
+    if (this.hero.isHurt() && this.hero.getBounds().top > bottomOfView + 100) {
       this.hero.destroy();
       this.addHero();
     }

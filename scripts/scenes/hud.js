@@ -64,13 +64,7 @@ class HudScene extends Phaser.Scene {
 
     this.setMeterPercentage(1);
   }
-  setMeterPercentage(percent = 1) {
-    const width = this.fullWidth * percent;
-
-    this.middle.displayWidth = width;
-    this.rightCap.x = this.middle.x + this.middle.displayWidth;
-  }
-  setMeterPercentageAnimated(percent = 1, duration = 1000) {
+  setMeterPercentage(percent = 1, duration = 1000) {
     const width = this.fullWidth * percent;
 
     this.tweens.add({
