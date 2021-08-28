@@ -258,6 +258,42 @@
                  "width":32,
                  "x":352,
                  "y":4192
+                }, 
+                {
+                 "gid":88,
+                 "height":32,
+                 "id":30,
+                 "name":"Heal1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":320,
+                 "y":3808
+                }, 
+                {
+                 "gid":88,
+                 "height":32,
+                 "id":31,
+                 "name":"Heal2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":704,
+                 "y":3680
+                }, 
+                {
+                 "gid":88,
+                 "height":32,
+                 "id":33,
+                 "name":"Heal3",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":1536,
+                 "y":3360
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -266,7 +302,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":30,
+ "nextobjectid":35,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

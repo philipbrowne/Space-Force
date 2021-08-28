@@ -123,11 +123,42 @@ class GameScene extends Phaser.Scene {
         this.hero.hurt();
       }
     );
+
+    const healer1Physics = this.physics.add.overlap(
+      this.hero,
+      this.healer1,
+      () => {
+        this.gameHealth += 25;
+        this.healer1obj.destroy();
+      }
+    );
+
+    const healer2Physics = this.physics.add.overlap(
+      this.hero,
+      this.healer2,
+      () => {
+        this.gameHealth += 25;
+        this.healer2obj.destroy();
+      }
+    );
+
+    const healer3Physics = this.physics.add.overlap(
+      this.hero,
+      this.healer3,
+      () => {
+        this.gameHealth += 25;
+        this.healer3obj.destroy();
+      }
+    );
+
     // Triggered by hurt event emission - removes colliders from the current hero instance before respawning a new one. Deducts 25 points from gameHealth
     this.hero.on('hurt', () => {
       this.gameHealth -= 25;
       groundPhysics.destroy();
       obstaclePhysics.destroy();
+      healer1Physics.destroy();
+      healer2Physics.destroy();
+      healer3Physics.destroy();
       // Currently has hero fall off map when hurt
       this.hero.body.setCollideWorldBounds(false);
       // Stops camera from following current hero instance when hurt
@@ -156,13 +187,20 @@ class GameScene extends Phaser.Scene {
       this.map.widthInPixels,
       this.map.heightInPixels
     );
-    const groundPhysics = this.physics.world.setBoundsCollision(
-      true,
-      true,
-      false,
-      true
-    );
+    this.physics.world.setBoundsCollision(true, true, false, true);
     this.obstacles = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.healer1 = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.healer2 = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.healer3 = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
@@ -180,6 +218,42 @@ class GameScene extends Phaser.Scene {
         obstacle.setOrigin(0, 1);
         obstacle.setSize(object.width - 6, object.height - 13);
         obstacle.setOffset(3, 13);
+      }
+      if (object.name === 'Heal1') {
+        this.healer1obj = this.healer1.create(
+          object.x,
+          object.y,
+          'space-station-sheet',
+          object.gid - 1
+        );
+        this.healer1obj.setOrigin(0, 1);
+        this.healer1obj.setSize(object.width - 6, object.height - 13);
+        this.healer1obj.setOffset(3, 13);
+        this.healer1.id = object.gid - 1;
+      }
+      if (object.name === 'Heal2') {
+        this.healer2obj = this.healer2.create(
+          object.x,
+          object.y,
+          'space-station-sheet',
+          object.gid - 1
+        );
+        this.healer2obj.setOrigin(0, 1);
+        this.healer2obj.setSize(object.width - 6, object.height - 13);
+        this.healer2obj.setOffset(3, 13);
+        this.healer2.id = object.gid - 1;
+      }
+      if (object.name === 'Heal3') {
+        this.healer3obj = this.healer3.create(
+          object.x,
+          object.y,
+          'space-station-sheet',
+          object.gid - 1
+        );
+        this.healer3obj.setOrigin(0, 1);
+        this.healer3obj.setSize(object.width - 6, object.height - 13);
+        this.healer3obj.setOffset(3, 13);
+        this.healer3.id = object.gid - 1;
       }
     });
   }
@@ -202,6 +276,9 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     const hud = game.scene.scenes[1];
+    if (this.gameHealth > 100) {
+      this.gameHealth = 100;
+    }
     if (hud) {
       hud.setMeterPercentage(this.gameHealth / 100);
     }
