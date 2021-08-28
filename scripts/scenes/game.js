@@ -48,6 +48,14 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    this.load.spritesheet(
+      'hero-still-sheet',
+      'assets/hero/hero-die/hero-die-140px.png',
+      {
+        frameWidth: 54,
+        frameHeight: 140,
+      }
+    );
   }
 
   create(data) {
@@ -78,6 +86,12 @@ class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'hero-still',
       frames: this.anims.generateFrameNumbers('hero-still-sheet'),
+    });
+    this.anims.create({
+      key: 'hero-dying',
+      frames: this.anims.generateFrameNumbers('hero-die-sheet'),
+      frameRate: 5,
+      repeat: 0,
     });
     this.addMap();
     this.addHero();
