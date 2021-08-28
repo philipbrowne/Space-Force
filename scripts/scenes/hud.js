@@ -26,11 +26,20 @@ class HudScene extends Phaser.Scene {
       'right-cap-shadow',
       'assets/healthbar/barHorizontal_shadow_right.png'
     );
+    this.load.image('left-button', 'assets/gamepad/left-arrow.png');
+    this.load.image('right-button', 'assets/gamepad/right-arrow.png');
+    this.load.image('up-button', 'assets/gamepad/up-arrow.png');
   }
   init() {
     this.fullWidth = 300;
   }
   create() {
+    this.leftButton = this.add.image(120, 720, 'left-button');
+    this.rightButton = this.add.image(270, 720, 'right-button');
+    this.upButton = this.add.image(1020, 705, 'up-button');
+    this.leftButton.setInteractive();
+    this.rightButton.setInteractive();
+    this.upButton.setInteractive();
     const y = 24;
     const x = 10;
     // background shadow
@@ -81,7 +90,5 @@ class HudScene extends Phaser.Scene {
       },
     });
   }
-  update() {
-    const hero = game.scene.scenes[0].hero;
-  }
+  update() {}
 }

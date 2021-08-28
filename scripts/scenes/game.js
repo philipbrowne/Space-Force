@@ -275,12 +275,12 @@ class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    const hud = game.scene.scenes[1];
+    this.hud = game.scene.scenes[1];
     if (this.gameHealth > 100) {
       this.gameHealth = 100;
     }
-    if (hud) {
-      hud.setMeterPercentage(this.gameHealth / 100);
+    if (this.hud) {
+      this.hud.setMeterPercentage(this.gameHealth / 100);
     }
     if (this.gameHealth === 0) {
       setTimeout(this.endGame, 1500);
