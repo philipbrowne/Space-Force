@@ -165,8 +165,8 @@ class GameScene extends Phaser.Scene {
           object.gid - 1
         );
         obstacle.setOrigin(0, 1);
-        obstacle.setSize(object.width - 10, object.height - 10);
-        obstacle.setOffset(5, 10);
+        obstacle.setSize(object.width - 6, object.height - 13);
+        obstacle.setOffset(3, 13);
       }
     });
   }
