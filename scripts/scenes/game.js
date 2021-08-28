@@ -10,7 +10,11 @@ class GameScene extends Phaser.Scene {
       'space-station',
       'assets/tilemaps/tile-day-10.json'
     );
-    this.load.image('space-station-sheet', 'assets/tilesets/space-station.png');
+    this.load.spritesheet(
+      'space-station-sheet',
+      'assets/tilesets/space-station.png',
+      { frameWidth: 32, frameHeight: 32, margin: 1, spacing: 2 }
+    );
     this.load.spritesheet(
       'hero-run-sheet',
       'assets/hero/hero-run/hero-run-140px.png',
@@ -118,12 +122,28 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.physics.world.setBoundsCollision(true, true, false, true);
+    this.obstacles = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
     this.map.getObjectLayer('Objects').objects.forEach((object) => {
       if (object.name === 'Start') {
         this.startCoords = { x: object.x, y: object.y };
       }
+      if (object.type === 'Obstacle') {
+        const obstacle = this.obstacles.create(
+          object.x,
+          object.y,
+          'space-station-sheet',
+          object.gid - 1
+        );
+        obstacle.setOrigin(0, 1);
+        obstacle.setSize(object.width - 10, object.height - 10);
+        obstacle.setOffset(5, 10);
+      }
     });
   }
+
   update(time, delta) {}
 }
 
