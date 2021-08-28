@@ -6,15 +6,14 @@ class GameScene extends Phaser.Scene {
   init(data) {}
 
   preload() {
-    this.load.tilemapTiledJSON(
-      'space-station',
-      'assets/tilemaps/tile-day-10.json'
-    );
-    this.load.spritesheet(
-      'space-station-sheet',
-      'assets/tilesets/space-station.png',
-      { frameWidth: 32, frameHeight: 32, margin: 1, spacing: 2 }
-    );
+    this.load.tilemapTiledJSON('tileset', 'assets/tilemaps/tilemap.json');
+    this.load.spritesheet('tile-sheet', 'assets/tilesets/tileset.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+      margin: 1,
+      spacing: 2,
+    });
+
     this.load.spritesheet(
       'hero-run-sheet',
       'assets/hero/hero-run/hero-run-140px.png',
@@ -174,13 +173,16 @@ class GameScene extends Phaser.Scene {
   }
 
   addMap() {
-    this.map = this.make.tilemap({ key: 'space-station' });
-    const groundTiles = this.map.addTilesetImage(
-      'space-station',
-      'space-station-sheet'
-    );
+    this.map = this.make.tilemap({ key: 'tileset' });
+    const groundTiles = this.map.addTilesetImage('tileset', 'tile-sheet');
     const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
-    groundLayer.setCollision([5, 6, 7, 8], true);
+    groundLayer.setCollision(_.range(1, 9), true);
+    groundLayer.setCollision(_.range(10, 26), true);
+    groundLayer.setCollision(_.range(31, 37), true);
+    groundLayer.setCollision(_.range(38, 52), true);
+    groundLayer.setCollision(_.range(59, 61), true);
+    groundLayer.setCollision(_.range(63, 65), true);
+    groundLayer.setCollision(_.range(67, 80), true);
     this.physics.world.setBounds(
       0,
       0,
@@ -212,49 +214,49 @@ class GameScene extends Phaser.Scene {
         const obstacle = this.obstacles.create(
           object.x,
           object.y,
-          'space-station-sheet',
+          'tile-sheet',
           object.gid - 1
         );
         obstacle.setOrigin(0, 1);
         obstacle.setSize(object.width - 6, object.height - 13);
         obstacle.setOffset(3, 13);
       }
-      if (object.name === 'Heal1') {
-        this.healer1obj = this.healer1.create(
-          object.x,
-          object.y,
-          'space-station-sheet',
-          object.gid - 1
-        );
-        this.healer1obj.setOrigin(0, 1);
-        this.healer1obj.setSize(object.width - 6, object.height - 13);
-        this.healer1obj.setOffset(3, 13);
-        this.healer1.id = object.gid - 1;
-      }
-      if (object.name === 'Heal2') {
-        this.healer2obj = this.healer2.create(
-          object.x,
-          object.y,
-          'space-station-sheet',
-          object.gid - 1
-        );
-        this.healer2obj.setOrigin(0, 1);
-        this.healer2obj.setSize(object.width - 6, object.height - 13);
-        this.healer2obj.setOffset(3, 13);
-        this.healer2.id = object.gid - 1;
-      }
-      if (object.name === 'Heal3') {
-        this.healer3obj = this.healer3.create(
-          object.x,
-          object.y,
-          'space-station-sheet',
-          object.gid - 1
-        );
-        this.healer3obj.setOrigin(0, 1);
-        this.healer3obj.setSize(object.width - 6, object.height - 13);
-        this.healer3obj.setOffset(3, 13);
-        this.healer3.id = object.gid - 1;
-      }
+      //   if (object.name === 'Heal1') {
+      //     this.healer1obj = this.healer1.create(
+      //       object.x,
+      //       object.y,
+      //       'tile-sheet',
+      //       object.gid - 1
+      //     );
+      //     this.healer1obj.setOrigin(0, 1);
+      //     this.healer1obj.setSize(object.width - 6, object.height - 13);
+      //     this.healer1obj.setOffset(3, 13);
+      //     this.healer1.id = object.gid - 1;
+      //   }
+      //   if (object.name === 'Heal2') {
+      //     this.healer2obj = this.healer2.create(
+      //       object.x,
+      //       object.y,
+      //       'tile-sheet',
+      //       object.gid - 1
+      //     );
+      //     this.healer2obj.setOrigin(0, 1);
+      //     this.healer2obj.setSize(object.width - 6, object.height - 13);
+      //     this.healer2obj.setOffset(3, 13);
+      //     this.healer2.id = object.gid - 1;
+      //   }
+      //   if (object.name === 'Heal3') {
+      //     this.healer3obj = this.healer3.create(
+      //       object.x,
+      //       object.y,
+      //       'tile-sheet',
+      //       object.gid - 1
+      //     );
+      //     this.healer3obj.setOrigin(0, 1);
+      //     this.healer3obj.setSize(object.width - 6, object.height - 13);
+      //     this.healer3obj.setOffset(3, 13);
+      //     this.healer3.id = object.gid - 1;
+      //   }
     });
   }
   // Returns current position of hero on map
