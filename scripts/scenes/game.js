@@ -179,7 +179,7 @@ class GameScene extends Phaser.Scene {
       }
     });
   }
-
+  // Returns current position of hero on map
   getHeroPosition() {
     return {
       x: this.hero.getBounds().x,
@@ -192,6 +192,12 @@ class GameScene extends Phaser.Scene {
       0,
       this.cameras.main.height
     ).y;
+    // Destroy instance of hero and start new one upon death and once the hero has fallen off map
+    if (this.hero.isDead() && this.hero.getBounds().top > bottomOfView + 100) {
+      this.hero.destroy();
+      this.addHero();
+    }
+    console.log(this.getHeroPosition());
   }
 }
 class HealthBar {
