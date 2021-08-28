@@ -22,7 +22,7 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
-    this.load.image('background', 'assets/backgrounds/mars3.png');
+    this.load.image('background', 'assets/backgrounds/mars-final-bg.png');
     this.load.spritesheet(
       'hero-jump-sheet',
       'assets/hero/hero-jump/hero-jump-140px.png',
