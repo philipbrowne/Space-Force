@@ -13,6 +13,7 @@ class GameScene extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
+    this.load.image('bg-sheet', 'assets/backgrounds/mars.png');
 
     this.load.spritesheet(
       'hero-run-sheet',
@@ -22,7 +23,6 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
-    this.load.image('background', 'assets/backgrounds/mars-final-bg.png');
     this.load.spritesheet(
       'hero-jump-sheet',
       'assets/hero/hero-jump/hero-jump-140px.png',
@@ -58,8 +58,6 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
-    let bg = this.add.image(0, 0, 'background');
-    bg.setScrollFactor(0.2);
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
@@ -149,6 +147,22 @@ class GameScene extends Phaser.Scene {
         this.healer3obj.destroy();
       }
     );
+    const healer4Physics = this.physics.add.overlap(
+      this.hero,
+      this.healer4,
+      () => {
+        this.gameHealth += 25;
+        this.healer4obj.destroy();
+      }
+    );
+    const healer5Physics = this.physics.add.overlap(
+      this.hero,
+      this.healer5,
+      () => {
+        this.gameHealth += 25;
+        this.healer5obj.destroy();
+      }
+    );
 
     // Triggered by hurt event emission - removes colliders from the current hero instance before respawning a new one. Deducts 25 points from gameHealth
     this.hero.on('hurt', () => {
@@ -158,6 +172,8 @@ class GameScene extends Phaser.Scene {
       healer1Physics.destroy();
       healer2Physics.destroy();
       healer3Physics.destroy();
+      healer4Physics.destroy();
+      healer5Physics.destroy();
       // Currently has hero fall off map when hurt
       this.hero.body.setCollideWorldBounds(false);
       // Stops camera from following current hero instance when hurt
@@ -174,6 +190,12 @@ class GameScene extends Phaser.Scene {
 
   addMap() {
     this.map = this.make.tilemap({ key: 'tileset' });
+    const backgroundTiles = this.map.addTilesetImage('mars', 'bg-sheet');
+    const backgroundLayer = this.map.createStaticLayer(
+      'Background',
+      backgroundTiles
+    );
+    backgroundLayer.setScrollFactor(0.5);
     const groundTiles = this.map.addTilesetImage('tileset', 'tile-sheet');
     const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
     groundLayer.setCollision(_.range(1, 9), true);
@@ -206,6 +228,14 @@ class GameScene extends Phaser.Scene {
       immovable: true,
       allowGravity: false,
     });
+    this.healer4 = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.healer5 = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
     this.map.getObjectLayer('Objects').objects.forEach((object) => {
       if (object.name === 'Start') {
         this.startCoords = { x: object.x, y: object.y };
@@ -221,42 +251,66 @@ class GameScene extends Phaser.Scene {
         obstacle.setSize(object.width - 6, object.height - 13);
         obstacle.setOffset(3, 13);
       }
-      //   if (object.name === 'Heal1') {
-      //     this.healer1obj = this.healer1.create(
-      //       object.x,
-      //       object.y,
-      //       'tile-sheet',
-      //       object.gid - 1
-      //     );
-      //     this.healer1obj.setOrigin(0, 1);
-      //     this.healer1obj.setSize(object.width - 6, object.height - 13);
-      //     this.healer1obj.setOffset(3, 13);
-      //     this.healer1.id = object.gid - 1;
-      //   }
-      //   if (object.name === 'Heal2') {
-      //     this.healer2obj = this.healer2.create(
-      //       object.x,
-      //       object.y,
-      //       'tile-sheet',
-      //       object.gid - 1
-      //     );
-      //     this.healer2obj.setOrigin(0, 1);
-      //     this.healer2obj.setSize(object.width - 6, object.height - 13);
-      //     this.healer2obj.setOffset(3, 13);
-      //     this.healer2.id = object.gid - 1;
-      //   }
-      //   if (object.name === 'Heal3') {
-      //     this.healer3obj = this.healer3.create(
-      //       object.x,
-      //       object.y,
-      //       'tile-sheet',
-      //       object.gid - 1
-      //     );
-      //     this.healer3obj.setOrigin(0, 1);
-      //     this.healer3obj.setSize(object.width - 6, object.height - 13);
-      //     this.healer3obj.setOffset(3, 13);
-      //     this.healer3.id = object.gid - 1;
-      //   }
+      if (object.name === 'Heal1') {
+        this.healer1obj = this.healer1.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.healer1obj.setOrigin(0, 1);
+        this.healer1obj.setSize(object.width - 6, object.height - 13);
+        this.healer1obj.setOffset(3, 13);
+        this.healer1.id = object.gid - 1;
+      }
+      if (object.name === 'Heal2') {
+        this.healer2obj = this.healer2.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.healer2obj.setOrigin(0, 1);
+        this.healer2obj.setSize(object.width - 6, object.height - 13);
+        this.healer2obj.setOffset(3, 13);
+        this.healer2.id = object.gid - 1;
+      }
+      if (object.name === 'Heal3') {
+        this.healer3obj = this.healer3.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.healer3obj.setOrigin(0, 1);
+        this.healer3obj.setSize(object.width - 6, object.height - 13);
+        this.healer3obj.setOffset(3, 13);
+        this.healer3.id = object.gid - 1;
+      }
+      if (object.name === 'Heal4') {
+        this.healer4obj = this.healer4.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.healer4obj.setOrigin(0, 1);
+        this.healer4obj.setSize(object.width - 6, object.height - 13);
+        this.healer4obj.setOffset(3, 13);
+        this.healer4.id = object.gid - 1;
+      }
+      if (object.name === 'Heal5') {
+        this.healer5obj = this.healer5.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.healer5obj.setOrigin(0, 1);
+        this.healer5obj.setSize(object.width - 6, object.height - 13);
+        this.healer5obj.setOffset(3, 13);
+        this.healer5.id = object.gid - 1;
+      }
     });
   }
   // Returns current position of hero on map
