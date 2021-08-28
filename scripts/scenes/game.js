@@ -93,6 +93,9 @@ class GameScene extends Phaser.Scene {
       frameRate: 10,
       repeat: 0,
     });
+
+    this.gameHealth = 1.0;
+
     this.addMap();
     this.addHero();
 
@@ -118,6 +121,7 @@ class GameScene extends Phaser.Scene {
       this.obstacles,
       () => {
         this.hero.kill();
+        this.gameHealth -= 0.2;
       }
     );
     // Triggered by kill event emission - removes colliders from this game.  Could be changed later with multiple lives, or health bar
@@ -188,6 +192,12 @@ class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+    const hud = game.scene.scenes[1];
+    hud.setMeterPercentageAnimated(this.gameHealth);
+    const gameOverScene = game.scene.scenes[2];
+    if (this.gameHealth === 0) {
+      gameOverScene.active = true;
+    }
     const bottomOfView = this.cameras.main.getWorldPoint(
       0,
       this.cameras.main.height
@@ -197,45 +207,5 @@ class GameScene extends Phaser.Scene {
       this.hero.destroy();
       this.addHero();
     }
-    console.log(this.getHeroPosition());
-  }
-}
-class HealthBar {
-  constructor(
-    scene,
-    x,
-    y,
-    width,
-    height,
-    corFill,
-    corUnfill,
-    value,
-    singleDecreaseValue
-  ) {
-    this.minValue = 0;
-    this.maxValue = value;
-    this.corUnifll = corUnfill;
-    this.corFill = corFill;
-    this.arc1 = scene.add.arc(x, y, height, 270, 90, true, corFill, 1);
-    this.rectangles = new Array(this.rectangleNo);
-    var valueToAdd = width / this.rectangleNo;
-    for (let i = 0; i <= 17; i++) {
-      this.rectangles[i] = scene.add.rectangle(
-        x + valueToAdd * i,
-        y,
-        width / this.rectangleNo,
-        height * 2,
-        corFill,
-        1
-      );
-    }
-    this.arc2 = scene.add.arc(x + width, y, height, 270, 90, false, corFill, 1);
-    this.text = scene.add.text(x + width / 4, y + height * 2, '100/100', {
-      fontFamily: 'Arial',
-      fontSize: 25,
-      color: 0xffffff,
-    });
-
-    this.arc1.scrollFactor = 0;
   }
 }

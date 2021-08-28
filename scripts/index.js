@@ -1,5 +1,5 @@
-new Phaser.Game(
+const game = new Phaser.Game(
   Object.assign(config, {
-    scene: [GameScene],
+    scene: [GameScene, HudScene, GameOverScene],
   })
 );

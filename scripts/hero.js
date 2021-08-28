@@ -21,6 +21,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.movement();
     this.animations();
     this.jumpKey();
+    this.health;
   }
 
   //   https://github.com/jakesgordon/javascript-state-machine
@@ -124,6 +125,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       this.animationState.die();
       this.emit('died');
     }
+    this.health -= 0.2;
   }
 
   // Creates a check for movement conditionals below
