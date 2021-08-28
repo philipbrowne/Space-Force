@@ -49,10 +49,10 @@ class GameScene extends Phaser.Scene {
       }
     );
     this.load.spritesheet(
-      'hero-still-sheet',
+      'hero-die-sheet',
       'assets/hero/hero-die/hero-die-140px.png',
       {
-        frameWidth: 54,
+        frameWidth: 125,
         frameHeight: 140,
       }
     );
@@ -88,9 +88,9 @@ class GameScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('hero-still-sheet'),
     });
     this.anims.create({
-      key: 'hero-dying',
+      key: 'hero-dead',
       frames: this.anims.generateFrameNumbers('hero-die-sheet'),
-      frameRate: 5,
+      frameRate: 10,
       repeat: 0,
     });
     this.addMap();
@@ -156,6 +156,9 @@ class GameScene extends Phaser.Scene {
         obstacle.setOffset(5, 10);
       }
     });
+    setTimeout(() => {
+      this.hero.kill();
+    }, 3000);
   }
 
   update(time, delta) {}
