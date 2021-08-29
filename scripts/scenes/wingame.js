@@ -3,8 +3,24 @@ class WinGameScene extends Phaser.Scene {
     super({ key: 'WinGameScene', active: false });
   }
 
-  preload() {}
+  preload() {
+    this.load.spritesheet(
+      'win-game-sheet',
+      'assets/hero/hero-win/hero-win-280px.png',
+      {
+        frameWidth: 170,
+        frameHeight: 280,
+      }
+    );
+  }
   create() {
+    this.anims.create({
+      key: 'win-game',
+      frames: this.anims.generateFrameNumbers('win-game-sheet'),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.add.sprite(600, 170, 'game-over-sheet').play('win-game');
     var text = this.add
       .text(600, 400, 'Congratulations, you won!!!', {
         fontSize: 70,
@@ -13,7 +29,7 @@ class WinGameScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
     const restartButton = this.add
-      .text(600, 600, 'Click to Restart', {
+      .text(600, 550, 'Click to Restart', {
         fontSize: 50,
         fill: '#FFFF00',
       })

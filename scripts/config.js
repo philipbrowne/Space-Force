@@ -1,7 +1,7 @@
 const config = {
   type: Phaser.AUTO,
   parent: 'game',
-  backgroundColor: '#8B2403',
+  backgroundColor: '#000000',
   scale: {
     width: 1200,
     height: 800,
