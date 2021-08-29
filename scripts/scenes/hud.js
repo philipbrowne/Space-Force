@@ -34,8 +34,7 @@ class HudScene extends Phaser.Scene {
     this.fullWidth = 300;
   }
   create() {
-    game.input.addPointer();
-
+    // game.input.addPointer();
     this.leftButton = this.add.image(150, 630, 'left-button');
     this.rightButton = this.add.image(440, 630, 'right-button');
     this.upButton = this.add.image(1025, 630, 'up-button');
@@ -50,7 +49,7 @@ class HudScene extends Phaser.Scene {
     const x = 10;
     // background shadow
     const leftShadowCap = this.add
-      .image(x, y, 'left-cap-shadow')
+      .image(x, y, 'left-cap-sahadow')
       .setOrigin(0, 0.5);
 
     const middleShaddowCap = this.add
@@ -96,15 +95,5 @@ class HudScene extends Phaser.Scene {
       },
     });
   }
-  update() {
-    // if (window.screen.availWidth > 400) {
-    //   this.leftButton.visible = false;
-    //   this.rightButton.visible = false;
-    //   this.upButton.visible = false;
-    // } else {
-    //   this.leftButton.visible = true;
-    //   this.rightButton.visible = true;
-    //   this.upButton.visible = true;
-    // }
-  }
+  update() {}
 }
