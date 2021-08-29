@@ -35,9 +35,6 @@ class HudScene extends Phaser.Scene {
   }
   create() {
     game.input.addPointer();
-    game.input.addPointer();
-    game.input.addPointer();
-    game.input.addPointer();
 
     this.leftButton = this.add.image(150, 630, 'left-button');
     this.rightButton = this.add.image(550, 630, 'right-button');
