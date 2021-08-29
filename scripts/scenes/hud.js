@@ -95,5 +95,15 @@ class HudScene extends Phaser.Scene {
       },
     });
   }
-  update() {}
+  update() {
+    if (window.screen.availWidth > 400) {
+      this.leftButton.visible = false;
+      this.rightButton.visible = false;
+      this.upButton.visible = false;
+    } else {
+      this.leftButton.visible = true;
+      this.rightButton.visible = true;
+      this.upButton.visible = true;
+    }
+  }
 }
