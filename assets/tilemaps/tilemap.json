@@ -18092,30 +18092,6 @@
                  "y":992
                 }, 
                 {
-                 "gid":30,
-                 "height":32,
-                 "id":4395,
-                 "name":"Heal1",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":7552,
-                 "y":2624
-                }, 
-                {
-                 "gid":80,
-                 "height":32,
-                 "id":4396,
-                 "name":"Heal2",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":64,
-                 "y":1856
-                }, 
-                {
                  "gid":81,
                  "height":32,
                  "id":4397,
@@ -18126,18 +18102,6 @@
                  "width":32,
                  "x":7584,
                  "y":1152
-                }, 
-                {
-                 "gid":61,
-                 "height":32,
-                 "id":4398,
-                 "name":"Heal4",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":32,
-                 "x":32,
-                 "y":608
                 }, 
                 {
                  "gid":62,
@@ -23022,6 +22986,42 @@
                  "width":32,
                  "x":3008,
                  "y":2432
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":4903,
+                 "name":"Heal1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":7552,
+                 "y":2624
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":4904,
+                 "name":"Heal2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":64,
+                 "y":1856
+                }, 
+                {
+                 "gid":81,
+                 "height":32,
+                 "id":4905,
+                 "name":"Heal4",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":96,
+                 "y":736
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -23030,7 +23030,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":4903,
+ "nextobjectid":4906,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

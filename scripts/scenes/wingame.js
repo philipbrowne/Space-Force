@@ -1,13 +1,13 @@
-class GameOverScene extends Phaser.Scene {
+class WinGameScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'GameOverScene', active: false });
+    super({ key: 'WinGameScene', active: false });
   }
 
   preload() {}
   create() {
     var text = this.add
-      .text(600, 400, 'GAME OVER', {
-        fontSize: 200,
+      .text(600, 400, 'Congratulations, you won!', {
+        fontSize: 100,
         color: '#FFFFFF',
         fontStyle: 'bold',
       })
@@ -24,10 +24,10 @@ class GameOverScene extends Phaser.Scene {
   restart() {
     const gameScene = game.scene.scenes[0];
     const hud = game.scene.scenes[1];
-    const gameOverScene = game.scene.scenes[2];
+    const winGame = game.scene.scenes[3];
     hud.scene.start();
     gameScene.scene.start();
-    gameOverScene.scene.stop();
+    winGame.scene.stop();
   }
   update() {}
 }
