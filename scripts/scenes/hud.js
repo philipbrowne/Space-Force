@@ -50,7 +50,7 @@ class HudScene extends Phaser.Scene {
     const x = 10;
     // background shadow
     const leftShadowCap = this.add
-      .image(x, y, 'left-cap-sahadow')
+      .image(x, y, 'left-cap-shadow')
       .setOrigin(0, 0.5);
 
     const middleShaddowCap = this.add
@@ -65,7 +65,6 @@ class HudScene extends Phaser.Scene {
         'right-cap-shadow'
       )
       .setOrigin(0, 0.5);
-
     // health bar
     this.leftCap = this.add.image(x, y, 'left-cap').setOrigin(0, 0.5);
 
