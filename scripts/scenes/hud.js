@@ -39,12 +39,12 @@ class HudScene extends Phaser.Scene {
     game.input.addPointer();
     game.input.addPointer();
 
-    this.leftButton = this.add.image(200, 850, 'left-button');
-    this.rightButton = this.add.image(600, 850, 'right-button');
-    this.upButton = this.add.image(1600, 850, 'up-button');
-    this.leftButton.alpha = 0.4;
-    this.rightButton.alpha = 0.4;
-    this.upButton.alpha = 0.4;
+    this.leftButton = this.add.image(200, 630, 'left-button');
+    this.rightButton = this.add.image(500, 630, 'right-button');
+    this.upButton = this.add.image(1000, 630, 'up-button');
+    this.leftButton.alpha = 0.12;
+    this.rightButton.alpha = 0.12;
+    this.upButton.alpha = 0.12;
 
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
@@ -100,14 +100,14 @@ class HudScene extends Phaser.Scene {
     });
   }
   update() {
-    if (window.screen.availWidth > 400) {
-      this.leftButton.visible = false;
-      this.rightButton.visible = false;
-      this.upButton.visible = false;
-    } else {
-      this.leftButton.visible = true;
-      this.rightButton.visible = true;
-      this.upButton.visible = true;
-    }
+    // if (window.screen.availWidth > 400) {
+    //   this.leftButton.visible = false;
+    //   this.rightButton.visible = false;
+    //   this.upButton.visible = false;
+    // } else {
+    //   this.leftButton.visible = true;
+    //   this.rightButton.visible = true;
+    //   this.upButton.visible = true;
+    // }
   }
 }
