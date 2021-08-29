@@ -39,7 +39,7 @@ class HudScene extends Phaser.Scene {
     this.leftButton = this.add.image(120, 470, 'left-button');
     this.rightButton = this.add.image(350, 470, 'right-button');
     this.upButton = this.add.image(670, 470, 'up-button');
-    this.leftButton.alpha = 0.17d;
+    this.leftButton.alpha = 0.17;
     this.rightButton.alpha = 0.17;
     this.upButton.alpha = 0.17;
 
