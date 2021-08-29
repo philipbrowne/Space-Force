@@ -127,7 +127,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer1,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer1obj.destroy();
       }
     );
@@ -136,7 +136,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer2,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer2obj.destroy();
       }
     );
@@ -145,7 +145,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer3,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer3obj.destroy();
       }
     );
@@ -153,16 +153,8 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer4,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer4obj.destroy();
-      }
-    );
-    const healer5Physics = this.physics.add.overlap(
-      this.hero,
-      this.healer5,
-      () => {
-        this.gameHealth += 25;
-        this.healer5obj.destroy();
       }
     );
 
@@ -175,7 +167,6 @@ class GameScene extends Phaser.Scene {
       healer2Physics.destroy();
       healer3Physics.destroy();
       healer4Physics.destroy();
-      healer5Physics.destroy();
       // Currently has hero fall off map when hurt
       this.hero.body.setCollideWorldBounds(false);
       // Stops camera from following current hero instance when hurt
@@ -225,10 +216,6 @@ class GameScene extends Phaser.Scene {
       allowGravity: false,
     });
     this.healer4 = this.physics.add.group({
-      immovable: true,
-      allowGravity: false,
-    });
-    this.healer5 = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
@@ -294,18 +281,6 @@ class GameScene extends Phaser.Scene {
         this.healer4obj.setSize(object.width - 6, object.height - 13);
         this.healer4obj.setOffset(3, 13);
         this.healer4.id = object.gid - 1;
-      }
-      if (object.name === 'Heal5') {
-        this.healer5obj = this.healer5.create(
-          object.x,
-          object.y,
-          'tile-sheet',
-          object.gid - 1
-        );
-        this.healer5obj.setOrigin(0, 1);
-        this.healer5obj.setSize(object.width - 6, object.height - 13);
-        this.healer5obj.setOffset(3, 13);
-        this.healer5.id = object.gid - 1;
       }
     });
   }
