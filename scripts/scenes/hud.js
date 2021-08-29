@@ -26,17 +26,11 @@ class HudScene extends Phaser.Scene {
       'right-cap-shadow',
       'assets/healthbar/barHorizontal_shadow_right.png'
     );
-    this.load.image('left-button', 'assets/gamepad/left-arrow-200px.png');
-    this.load.image('right-button', 'assets/gamepad/right-arrow-200px.png');
-    this.load.image('up-button', 'assets/gamepad/up-arrow-200px.png');
   }
   init() {
     this.fullWidth = 300;
   }
   create() {
-    this.leftButton = this.add.image(400, 980, 'left-button');
-    this.rightButton = this.add.image(700, 980, 'right-button');
-    this.upButton = this.add.image(1520, 980, 'up-button');
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
