@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
 body {
   background-color: #571600;
   color: #fff;
@@ -28,9 +30,21 @@ h2 {
 }
 
 #soldierimg {
-  max-width: 200px;
+  max-width: 300px;
 }
 
 #keys {
   max-width: 500px;
+}
+
+#front {
+  background-image: url('/assets/images/mars-bg.png');
+  background-size: cover;
+  color: black;
+}
+
+#front h1 {
+  font-family: 'Black Ops One';
+  text-align: center;
+  font-size: 8rem;
 }
