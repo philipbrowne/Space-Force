@@ -160,25 +160,34 @@ class Hero extends Phaser.GameObjects.Sprite {
   }
 
   preUpdate(time, delta) {
-    this.hud = game.scene.scenes[1];
-    this.hud.leftButton.on('pointerdown', () => {
-      this.leftTouch = true;
-    });
-    this.hud.leftButton.on('pointerup', () => {
-      this.leftTouch = false;
-    });
-    this.hud.rightButton.on('pointerdown', () => {
-      this.rightTouch = true;
-    });
-    this.hud.rightButton.on('pointerup', () => {
-      this.rightTouch = false;
-    });
-    this.hud.upButton.on('pointerdown', () => {
-      this.jumpTouch = true;
-    });
-    this.hud.upButton.on('pointerup', () => {
-      this.jumpTouch = false;
-    });
+    if (game.scene.scenes[1]) {
+      this.hud = game.scene.scenes[1];
+    }
+    if (this.hud.leftButton) {
+      this.hud.leftButton.on('pointerdown', () => {
+        this.leftTouch = true;
+      });
+      this.hud.leftButton.on('pointerup', () => {
+        this.leftTouch = false;
+      });
+    }
+    if (this.hud.rightButton) {
+      this.hud.rightButton.on('pointerdown', () => {
+        this.rightTouch = true;
+      });
+
+      this.hud.rightButton.on('pointerup', () => {
+        this.rightTouch = false;
+      });
+    }
+    if (this.hud.upButton) {
+      this.hud.upButton.on('pointerdown', () => {
+        this.jumpTouch = true;
+      });
+      this.hud.upButton.on('pointerup', () => {
+        this.jumpTouch = false;
+      });
+    }
     super.preUpdate(time, delta);
     this.input.pressedJump = this.jumpKey();
     if (
