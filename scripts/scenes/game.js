@@ -132,7 +132,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer1,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer1obj.destroy();
         this.startCoords = { x: 7440, y: 2655 };
       }
@@ -142,7 +142,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer2,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer2obj.destroy();
         this.startCoords = { x: 80, y: 1855 };
       }
@@ -152,7 +152,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer3,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer3obj.destroy();
         this.startCoords = { x: 7392, y: 1311 };
       }
@@ -161,7 +161,7 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer4,
       () => {
-        this.gameHealth += 25;
+        this.gameHealth += 50;
         this.healer4obj.destroy();
         this.startCoords = { x: 560, y: 865 };
       }
