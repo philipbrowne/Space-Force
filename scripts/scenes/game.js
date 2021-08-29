@@ -13,7 +13,7 @@ class GameScene extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
-    this.load.image('background', 'assets/backgrounds/mars.png');
+    this.load.image('background', 'assets/backgrounds/mars2.png');
 
     this.load.spritesheet(
       'hero-run-sheet',
@@ -74,8 +74,8 @@ class GameScene extends Phaser.Scene {
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
-    let bg = this.add.image(0, 0, 'background');
-    bg.setScrollFactor(0.2);
+    let bg = this.add.image(0, 0, 'background').setOrigin(0);
+    bg.setScrollFactor(0.1);
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.anims.create({
       key: 'hero-running',
