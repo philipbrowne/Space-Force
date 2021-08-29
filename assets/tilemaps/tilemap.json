@@ -18190,18 +18190,6 @@
                 {
                  "gid":52,
                  "height":32,
-                 "id":4403,
-                 "name":"",
-                 "rotation":0,
-                 "type":"Obstacle",
-                 "visible":true,
-                 "width":32,
-                 "x":1984,
-                 "y":3328
-                }, 
-                {
-                 "gid":52,
-                 "height":32,
                  "id":4404,
                  "name":"",
                  "rotation":0,
@@ -18234,18 +18222,6 @@
                  "width":32,
                  "x":2848,
                  "y":3200
-                }, 
-                {
-                 "gid":52,
-                 "height":32,
-                 "id":4407,
-                 "name":"",
-                 "rotation":0,
-                 "type":"Obstacle",
-                 "visible":true,
-                 "width":32,
-                 "x":3744,
-                 "y":3072
                 }, 
                 {
                  "gid":52,
@@ -18330,18 +18306,6 @@
                  "width":32,
                  "x":6400,
                  "y":2336
-                }, 
-                {
-                 "gid":52,
-                 "height":32,
-                 "id":4415,
-                 "name":"",
-                 "rotation":0,
-                 "type":"Obstacle",
-                 "visible":true,
-                 "width":32,
-                 "x":3648,
-                 "y":2368
                 }, 
                 {
                  "gid":52,
