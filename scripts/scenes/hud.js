@@ -26,9 +26,9 @@ class HudScene extends Phaser.Scene {
       'right-cap-shadow',
       'assets/healthbar/barHorizontal_shadow_right.png'
     );
-    this.load.image('left-button', 'assets/gamepad/left-arrow-200px.png');
-    this.load.image('right-button', 'assets/gamepad/right-arrow-200px.png');
-    this.load.image('up-button', 'assets/gamepad/up-arrow-200px.png');
+    this.load.image('left-button', 'assets/gamepad/left-arrow-300px.png');
+    this.load.image('right-button', 'assets/gamepad/right-arrow-300px.png');
+    this.load.image('up-button', 'assets/gamepad/up-arrow-400px.png');
   }
   init() {
     this.fullWidth = 300;
@@ -39,9 +39,13 @@ class HudScene extends Phaser.Scene {
     game.input.addPointer();
     game.input.addPointer();
 
-    this.leftButton = this.add.image(200, 980, 'left-button');
-    this.rightButton = this.add.image(500, 980, 'right-button');
-    this.upButton = this.add.image(1720, 980, 'up-button');
+    this.leftButton = this.add.image(200, 850, 'left-button');
+    this.rightButton = this.add.image(600, 850, 'right-button');
+    this.upButton = this.add.image(1600, 850, 'up-button');
+    this.leftButton.alpha = 0.4;
+    this.rightButton.alpha = 0.4;
+    this.upButton.alpha = 0.4;
+
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
