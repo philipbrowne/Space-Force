@@ -39,9 +39,9 @@ class HudScene extends Phaser.Scene {
     game.input.addPointer();
     game.input.addPointer();
 
-    this.leftButton = this.add.image(400, 980, 'left-button');
-    this.rightButton = this.add.image(700, 980, 'right-button');
-    this.upButton = this.add.image(1520, 980, 'up-button');
+    this.leftButton = this.add.image(200, 980, 'left-button');
+    this.rightButton = this.add.image(500, 980, 'right-button');
+    this.upButton = this.add.image(1720, 980, 'up-button');
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
