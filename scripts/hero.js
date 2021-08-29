@@ -35,6 +35,11 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'fall', from: 'standing', to: 'falling' },
         { name: 'land', from: ['jumping', 'falling'], to: 'standing' },
         { name: 'hurt', from: ['standing', 'falling', 'jumping'], to: 'hurt' },
+        {
+          name: 'win',
+          from: ['standing', 'falling', 'jumping'],
+          to: 'winning',
+        },
       ],
       // Movement side effects for jump and death
       methods: {
@@ -43,6 +48,10 @@ class Hero extends Phaser.GameObjects.Sprite {
         },
         onHurt: () => {
           this.body.setVelocity(0, -300);
+          this.body.setAcceleration(0);
+        },
+        onWin: () => {
+          this.body.setVelocity(0, -200);
           this.body.setAcceleration(0);
         },
       },
@@ -72,6 +81,11 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'jump', from: ['still', 'running'], to: 'jumping' },
         { name: 'fall', from: ['still', 'running', 'jumping'], to: 'falling' },
         { name: 'hurt', from: '*', to: 'hurt' },
+        {
+          name: 'win',
+          from: ['falling', 'running', 'still', 'jumping'],
+          to: 'winning',
+        },
       ],
       methods: {
         onEnterState: (lifecycle) => {
@@ -128,9 +142,21 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
   }
 
+  win() {
+    if (this.moveState.can('win')) {
+      this.moveState.win();
+      this.animationState.win();
+      this.emit('win');
+    }
+  }
+
   // Creates a check for movement conditionals below
   isHurt() {
     return this.moveState.is('hurt');
+  }
+
+  isWinning() {
+    return this.moveState.is('winning');
   }
 
   preUpdate(time, delta) {
@@ -157,6 +183,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.input.pressedJump = this.jumpKey();
     if (
       !this.isHurt() &&
+      !this.isWinning() &&
       (this.dirKeys.left.isDown || this.aKey.isDown || this.leftTouch)
     ) {
       this.body.setAccelerationX(-1500);
@@ -164,6 +191,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       this.body.offset.x = 25;
     } else if (
       !this.isHurt() &&
+      !this.isWinning() &&
       (this.dirKeys.right.isDown || this.dKey.isDown || this.rightTouch)
     ) {
       this.body.setAccelerationX(1500);

@@ -6,15 +6,15 @@ class WinGameScene extends Phaser.Scene {
   preload() {}
   create() {
     var text = this.add
-      .text(600, 400, 'Congratulations, you won!', {
-        fontSize: 100,
-        color: '#FFFFFF',
+      .text(600, 400, 'Congratulations, you won!!!', {
+        fontSize: 70,
+        color: '#ADD8E6',
         fontStyle: 'bold',
       })
       .setOrigin(0.5);
     const restartButton = this.add
       .text(600, 600, 'Click to Restart', {
-        fontSize: 80,
+        fontSize: 50,
         fill: '#0f0',
       })
       .setOrigin(0.5);

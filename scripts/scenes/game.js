@@ -55,6 +55,14 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    this.load.spritesheet(
+      'hero-win-sheet',
+      'assets/hero/hero-win/hero-win-140px.png',
+      {
+        frameWidth: 85,
+        frameHeight: 140,
+      }
+    );
   }
 
   create(data) {
@@ -96,6 +104,12 @@ class GameScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('hero-hurt-sheet'),
       frameRate: 10,
       repeat: 0,
+    });
+    this.anims.create({
+      key: 'hero-winning',
+      frames: this.anims.generateFrameNumbers('hero-win-sheet'),
+      frameRate: 10,
+      repeat: -1,
     });
 
     this.gameHealth = 100;
@@ -166,6 +180,11 @@ class GameScene extends Phaser.Scene {
         this.startCoords = { x: 560, y: 865 };
       }
     );
+    const starPhysics = this.physics.add.overlap(this.hero, this.star, () => {
+      this.starObj.destroy();
+      this.hero.win();
+      setTimeout(this.winGame, 2500);
+    });
 
     // Triggered by hurt event emission - removes colliders from the current hero instance before respawning a new one. Deducts 25 points from gameHealth
     this.hero.on('hurt', () => {
@@ -176,6 +195,7 @@ class GameScene extends Phaser.Scene {
       healer2Physics.destroy();
       healer3Physics.destroy();
       healer4Physics.destroy();
+      starPhysics.destroy();
       // Currently has hero fall off map when hurt
       this.hero.body.setCollideWorldBounds(false);
       // Stops camera from following current hero instance when hurt
@@ -225,6 +245,10 @@ class GameScene extends Phaser.Scene {
       allowGravity: false,
     });
     this.healer4 = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.star = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
@@ -288,6 +312,18 @@ class GameScene extends Phaser.Scene {
         this.healer4obj.setOffset(3, 13);
         this.healer4.id = object.gid - 1;
       }
+      if (object.name === 'End') {
+        this.starObj = this.star.create(
+          object.x,
+          object.y,
+          'tile-sheet',
+          object.gid - 1
+        );
+        this.starObj.setOrigin(0, 1);
+        this.starObj.setSize(object.width - 6, object.height - 13);
+        this.starObj.setOffset(3, 13);
+        this.starObj.id = object.gid - 1;
+      }
     });
   }
   // Returns current position of hero on map
@@ -298,13 +334,22 @@ class GameScene extends Phaser.Scene {
     };
   }
 
-  endGame() {
+  gameOver() {
     const hud = game.scene.scenes[1];
-    hud.scene.stop();
     const gameOverScene = game.scene.scenes[2];
     const gameScene = game.scene.scenes[0];
+    hud.scene.stop();
     gameScene.scene.stop();
     game.scene.start(gameOverScene);
+  }
+
+  winGame() {
+    const hud = game.scene.scenes[1];
+    const winGameScene = game.scene.scenes[3];
+    const gameScene = game.scene.scenes[0];
+    hud.scene.stop();
+    gameScene.scene.stop();
+    game.scene.start(winGameScene);
   }
 
   update(time, delta) {
@@ -316,7 +361,7 @@ class GameScene extends Phaser.Scene {
       this.hud.setMeterPercentage(this.gameHealth / 100);
     }
     if (this.gameHealth === 0) {
-      setTimeout(this.endGame, 1500);
+      setTimeout(this.gameOver, 1500);
     }
     const bottomOfView = this.cameras.main.getWorldPoint(
       0,
