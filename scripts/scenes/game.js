@@ -58,6 +58,11 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
+    // Starting Coordinates for Player at Beginning of Map - updated when player reaches checkpoints/healing objects
+    this.startCoords = {
+      x: 64,
+      y: 3264,
+    };
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
@@ -127,8 +132,9 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer1,
       () => {
-        this.gameHealth += 50;
+        this.gameHealth += 25;
         this.healer1obj.destroy();
+        this.startCoords = { x: 7440, y: 2655 };
       }
     );
 
@@ -136,8 +142,9 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer2,
       () => {
-        this.gameHealth += 50;
+        this.gameHealth += 25;
         this.healer2obj.destroy();
+        this.startCoords = { x: 80, y: 1855 };
       }
     );
 
@@ -145,16 +152,18 @@ class GameScene extends Phaser.Scene {
       this.hero,
       this.healer3,
       () => {
-        this.gameHealth += 50;
+        this.gameHealth += 25;
         this.healer3obj.destroy();
+        this.startCoords = { x: 7392, y: 1311 };
       }
     );
     const healer4Physics = this.physics.add.overlap(
       this.hero,
       this.healer4,
       () => {
-        this.gameHealth += 50;
+        this.gameHealth += 25;
         this.healer4obj.destroy();
+        this.startCoords = { x: 560, y: 865 };
       }
     );
 
@@ -220,9 +229,6 @@ class GameScene extends Phaser.Scene {
       allowGravity: false,
     });
     this.map.getObjectLayer('Objects').objects.forEach((object) => {
-      if (object.name === 'Start') {
-        this.startCoords = { x: object.x, y: object.y };
-      }
       if (object.type === 'Obstacle') {
         const obstacle = this.obstacles.create(
           object.x,
