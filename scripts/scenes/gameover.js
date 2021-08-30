@@ -41,7 +41,7 @@ class GameOverScene extends Phaser.Scene {
     this.gameScene = game.scene.scenes[0];
     this.endTime = this.gameScene.totalTime;
     const timePlayedText = this.add
-      .text(960, 1000, `You survived for: ${this.endTime}`, {
+      .text(960, 1000, `You survived for ${this.endTime}`, {
         fontSize: 50,
         fill: '#00FFFF',
       })
