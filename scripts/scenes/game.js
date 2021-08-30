@@ -130,6 +130,46 @@ class GameScene extends Phaser.Scene {
     );
     this.mainCam = this.cameras.cameras[0];
     // In Game Text Messages
+    this.welcomeText1 = this.add.bitmapText(
+      32,
+      2920,
+      'Roboto',
+      'Welcome to Mars!',
+      40,
+      0
+    );
+    this.welcomeText2 = this.add.bitmapText(
+      256,
+      3000,
+      'Roboto',
+      'To Move Left - Press A, Left, or click the Left Arrow Button on the screen',
+      30,
+      0
+    );
+    this.welcomeText3 = this.add.bitmapText(
+      256,
+      3040,
+      'Roboto',
+      'To Move Right - Press D, Right, or click the Right Arrow Button on the screen',
+      30,
+      0
+    );
+    this.welcomeText4 = this.add.bitmapText(
+      558,
+      3080,
+      'Roboto',
+      'To Jump - Press W, Space, Up, or click the Up Arrow Button on the screen',
+      30,
+      0
+    );
+    this.welcomeText5 = this.add.bitmapText(
+      900,
+      3150,
+      'Roboto',
+      'Good luck!',
+      40,
+      0
+    );
     this.cp1Text = this.add.bitmapText(
       7310,
       2527,

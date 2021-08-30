@@ -20,17 +20,17 @@ class WinGameScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-    this.add.sprite(400, 150, 'win-game-sheet').play('win-game');
+    this.add.sprite(960, 350, 'win-game-sheet').play('win-game');
     var text = this.add
-      .text(400, 350, 'Congratulations, you won!!!', {
-        fontSize: 40,
+      .text(960, 600, 'Congratulations, you won!', {
+        fontSize: 100,
         color: '#FFFFFF',
         fontStyle: 'bold',
       })
       .setOrigin(0.5);
     const restartButton = this.add
-      .text(400, 450, 'Click to Restart', {
-        fontSize: 35,
+      .text(960, 800, 'Click to Restart', {
+        fontSize: 80,
         fill: '#FFFF00',
       })
       .setOrigin(0.5);

@@ -15,15 +15,15 @@ class GameOverScene extends Phaser.Scene {
   }
   create() {
     var text = this.add
-      .text(400, 350, 'GAME OVER', {
-        fontSize: 100,
+      .text(960, 530, 'GAME OVER', {
+        fontSize: 300,
         color: '#FFFFFF',
         fontStyle: 'bold',
       })
       .setOrigin(0.5);
     const restartButton = this.add
-      .text(400, 450, 'Click to Restart', {
-        fontSize: 40,
+      .text(960, 800, 'Click Here to Restart', {
+        fontSize: 120,
         fill: '#FFFF00',
       })
       .setOrigin(0.5);
@@ -33,7 +33,7 @@ class GameOverScene extends Phaser.Scene {
       frameRate: 6,
       repeat: -1,
     });
-    this.add.sprite(400, 150, 'game-over-sheet').play('game-over');
+    this.add.sprite(960, 250, 'game-over-sheet').play('game-over');
     restartButton.setInteractive();
     restartButton.on('pointerdown', this.restart);
   }
