@@ -101,7 +101,7 @@ class HudScene extends Phaser.Scene {
       fontSize: 35,
       fill: '#000000',
     });
-    this.timeButton.alpha = 0.3;
+    this.timeButton.alpha = 0.6;
     this.timeText.alpha = 1;
   }
 

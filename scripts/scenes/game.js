@@ -68,6 +68,11 @@ class GameScene extends Phaser.Scene {
       'assets/fonts/Roboto.png',
       'assets/fonts/Roboto.xml'
     );
+    this.load.bitmapFont(
+      'Black-Ops-One',
+      'assets/fonts/BlackOpsOne.png',
+      'assets/fonts/BlackOpsOne.xml'
+    );
   }
 
   create(data) {
@@ -76,6 +81,7 @@ class GameScene extends Phaser.Scene {
       x: 112,
       y: 3135,
     };
+
     this.hud = game.scene.scenes[1];
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
@@ -132,9 +138,9 @@ class GameScene extends Phaser.Scene {
     this.welcomeText1 = this.add.bitmapText(
       32,
       2920,
-      'Roboto',
+      'Black-Ops-One',
       'Welcome to Mars!',
-      40,
+      45,
       0
     );
     this.welcomeText2 = this.add.bitmapText(
@@ -172,9 +178,9 @@ class GameScene extends Phaser.Scene {
     this.welcomeText6 = this.add.bitmapText(
       1050,
       3170,
-      'Roboto',
+      'Black-Ops-One',
       'Good Luck!',
-      40,
+      45,
       0
     );
     this.welcomeText7 = this.add.bitmapText(
@@ -189,7 +195,7 @@ class GameScene extends Phaser.Scene {
     this.cp1Text = this.add.bitmapText(
       7310,
       2527,
-      'Roboto',
+      'Black-Ops-One',
       'Checkpoint 1 of 4',
       24,
       0
@@ -197,15 +203,15 @@ class GameScene extends Phaser.Scene {
     this.cp2Text = this.add.bitmapText(
       64,
       1760,
-      'Roboto',
+      'Black-Ops-One',
       'Checkpoint 2 of 4 - Halfway done!',
       24,
       0
     );
     this.cp3Text = this.add.bitmapText(
-      7424,
+      7380,
       1056,
-      'Roboto',
+      'Black-Ops-One',
       'Checkpoint 3 of 4',
       24,
       0
@@ -213,7 +219,7 @@ class GameScene extends Phaser.Scene {
     this.cp4Text = this.add.bitmapText(
       96,
       608,
-      'Roboto',
+      'Black-Ops-One',
       'Checkpoint 4 of 4 - Almost there!',
       24,
       0

@@ -92,7 +92,6 @@ class Hero extends Phaser.GameObjects.Sprite {
           // plays animation from game.js file
           this.anims.play(`hero-${lifecycle.to}`);
           // Prints current animation state in console for debugging purposes
-          console.log(lifecycle);
         },
       },
     });
