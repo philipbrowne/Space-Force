@@ -163,18 +163,35 @@ class GameScene extends Phaser.Scene {
       0
     );
     this.welcomeText5 = this.add.bitmapText(
-      900,
-      3150,
+      820,
+      3120,
       'Roboto',
-      'Good luck!',
+      'Beware of Spikes, Lava, Poison, and other Obstacles',
+      30,
+      0
+    );
+    this.welcomeText6 = this.add.bitmapText(
+      1050,
+      3170,
+      'Roboto',
+      'Good Luck!',
       40,
       0
     );
+    this.welcomeText7 = this.add.bitmapText(
+      6120,
+      2650,
+      'Roboto',
+      'Medkits will restore 50% of your health and provide a checkpoint to save your current progress in this game!',
+      24,
+      0
+    );
+
     this.cp1Text = this.add.bitmapText(
       7310,
       2527,
       'Roboto',
-      'Checkpoint #1',
+      'Checkpoint 1 of 4',
       24,
       0
     );
@@ -182,7 +199,7 @@ class GameScene extends Phaser.Scene {
       64,
       1760,
       'Roboto',
-      'Checkpoint #2',
+      'Checkpoint 2 of 4 - Halfway done!',
       24,
       0
     );
@@ -190,7 +207,7 @@ class GameScene extends Phaser.Scene {
       7424,
       1056,
       'Roboto',
-      'Checkpoint #3',
+      'Checkpoint 3 of 4',
       24,
       0
     );
@@ -198,7 +215,7 @@ class GameScene extends Phaser.Scene {
       96,
       608,
       'Roboto',
-      'Checkpoint #4',
+      'Checkpoint 4 of 4 - Almost there!',
       24,
       0
     );
