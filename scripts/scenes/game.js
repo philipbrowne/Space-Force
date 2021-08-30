@@ -76,6 +76,7 @@ class GameScene extends Phaser.Scene {
       x: 112,
       y: 3135,
     };
+    this.hud = game.scene.scenes[1];
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
@@ -227,6 +228,20 @@ class GameScene extends Phaser.Scene {
       24,
       0
     );
+    if (this.hud) {
+      this.hud.toggleButton.on('pointerdown', () => {
+        if (
+          this.hud.leftButton.visible &&
+          this.hud.rightButton.visible &&
+          this.hud.upButton.visible
+        ) {
+          this.hud.hideTouchButtons();
+        } else {
+          this.hud.showTouchButtons();
+        }
+      });
+    }
+    this.tabKey = this.input.keyboard.addKey('TAB', true);
   }
 
   addHero() {
@@ -460,7 +475,19 @@ class GameScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    this.hud = game.scene.scenes[1];
+    if (this.hud) {
+      if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
+        if (
+          this.hud.leftButton.visible &&
+          this.hud.rightButton.visible &&
+          this.hud.upButton.visible
+        ) {
+          this.hud.hideTouchButtons();
+        } else {
+          this.hud.showTouchButtons();
+        }
+      }
+    }
     if (this.gameHealth > 100) {
       this.gameHealth = 100;
     }

@@ -29,6 +29,7 @@ class HudScene extends Phaser.Scene {
     this.load.image('left-button', 'assets/gamepad/left-arrow-orig.png');
     this.load.image('right-button', 'assets/gamepad/right-arrow-orig.png');
     this.load.image('up-button', 'assets/gamepad/up-arrow-orig.png');
+    this.load.image('empty-button', 'assets/buttons/greenbutton-260x65.png');
   }
   init() {
     this.fullWidth = 300;
@@ -38,6 +39,15 @@ class HudScene extends Phaser.Scene {
     this.leftButton = this.add.image(240, 820, 'left-button');
     this.rightButton = this.add.image(750, 820, 'right-button');
     this.upButton = this.add.image(1650, 820, 'up-button');
+    this.toggleButton = this.add.image(130, 75, 'empty-button');
+    this.toggleButtonText = this.add
+      .text(130, 75, 'Toggle Touch Buttons', {
+        fontSize: 18,
+        fill: '#000000',
+      })
+      .setOrigin(0.5);
+    this.toggleButton.alpha = 0.7;
+    this.toggleButtonText.alpha = 1;
     this.leftButton.alpha = 0.17;
     this.rightButton.alpha = 0.17;
     this.upButton.alpha = 0.17;
@@ -45,6 +55,8 @@ class HudScene extends Phaser.Scene {
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
+    this.toggleButton.setInteractive();
+    this.toggleButtonText.setInteractive();
     const y = 24;
     const x = 10;
     // background shadow
@@ -93,6 +105,25 @@ class HudScene extends Phaser.Scene {
         this.rightCap.visible = this.middle.displayWidth > 0;
       },
     });
+  }
+
+  hideTouchButtons() {
+    this.leftButton.visible = false;
+    this.leftButton.disableInteractive();
+    this.rightButton.visible = false;
+    this.rightButton.disableInteractive();
+    this.upButton.visible = false;
+    this.upButton.disableInteractive();
+    this.toggleButtonText.setText('Show Touch Buttons');
+  }
+  showTouchButtons() {
+    this.leftButton.visible = true;
+    this.leftButton.setInteractive();
+    this.rightButton.visible = true;
+    this.rightButton.setInteractive();
+    this.upButton.visible = true;
+    this.upButton.setInteractive();
+    this.toggleButtonText.setText('Hide Touch Buttons');
   }
   update() {}
 }

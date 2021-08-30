@@ -21918,18 +21918,6 @@
                  "width":32,
                  "x":1952,
                  "y":1120
-                }, 
-                {
-                 "height":0,
-                 "id":5008,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":6208,
-                 "y":2688
                 }],
          "opacity":1,
          "type":"objectgroup",
