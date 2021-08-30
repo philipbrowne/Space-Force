@@ -30,6 +30,7 @@ class HudScene extends Phaser.Scene {
     this.load.image('right-button', 'assets/gamepad/right-arrow-orig.png');
     this.load.image('up-button', 'assets/gamepad/up-arrow-orig.png');
     this.load.image('empty-button', 'assets/buttons/greenbutton-260x65.png');
+    this.load.image('time-button', 'assets/buttons/blue-button-210x63.png');
   }
   init() {
     this.fullWidth = 300;
@@ -51,7 +52,13 @@ class HudScene extends Phaser.Scene {
     this.leftButton.alpha = 0.17;
     this.rightButton.alpha = 0.17;
     this.upButton.alpha = 0.17;
-
+    this.gameTime = this.time.addEvent({
+      delay: 6000000,
+      callback: this.onClockEvent,
+      callbackScope: this,
+      repeat: 1,
+    });
+    this.currTime;
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
@@ -88,7 +95,16 @@ class HudScene extends Phaser.Scene {
       .setOrigin(0, 0.5);
 
     this.setMeterPercentage(1);
+    // In Game Timer - Source for Function
+    this.timeButton = this.add.image(972, 35, 'time-button');
+    this.timeText = this.add.text(890, 20, '', {
+      fontSize: 35,
+      fill: '#000000',
+    });
+    this.timeButton.alpha = 0.3;
+    this.timeText.alpha = 1;
   }
+
   setMeterPercentage(percent = 1, duration = 1000) {
     const width = this.fullWidth * percent;
 
@@ -125,5 +141,21 @@ class HudScene extends Phaser.Scene {
     this.upButton.setInteractive();
     this.toggleButtonText.setText('Hide Touch Buttons');
   }
-  update() {}
+  // Source for Timer Method: https://www.html5gamedevs.com/topic/1870-in-game-timer/
+  updateTimer() {
+    // Time Elapsed in MS
+    this.timeElapsed = this.gameTime.elapsed;
+    this.minutes = Math.floor(this.timeElapsed / 60000) % 60;
+    this.seconds = Math.floor(this.timeElapsed / 1000) % 60;
+    this.milliseconds = Math.floor(this.timeElapsed) % 100; //If any of the digits becomes a single digit number, pad it with a zero
+    if (this.milliseconds < 10) this.milliseconds = '0' + this.milliseconds;
+    if (this.seconds < 10) this.seconds = '0' + this.seconds;
+    if (this.minutes < 10) this.minutes = '0' + this.minutes;
+    this.currTime = this.minutes + ':' + this.seconds + ':' + this.milliseconds;
+    this.timeText.setText(this.currTime);
+  }
+
+  update() {
+    this.updateTimer();
+  }
 }

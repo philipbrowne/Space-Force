@@ -71,7 +71,7 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
-    // Starting Coordinates for Player at Beginning of Map - updated when player reaches checkpoints/healing objects
+    // Starting Coordinates for Player at Beginning of Map - updated when player reaches new check points via medkits
     this.startCoords = {
       x: 112,
       y: 3135,
@@ -119,10 +119,8 @@ class GameScene extends Phaser.Scene {
     });
 
     this.gameHealth = 100;
-
     this.addMap();
     this.addHero();
-
     this.cameras.main.setBounds(
       0,
       0,
@@ -460,6 +458,7 @@ class GameScene extends Phaser.Scene {
     const hud = game.scene.scenes[1];
     const gameOverScene = game.scene.scenes[2];
     const gameScene = game.scene.scenes[0];
+    hud.gameTime.destroy();
     hud.scene.stop();
     gameScene.scene.stop();
     game.scene.start(gameOverScene);
@@ -494,6 +493,7 @@ class GameScene extends Phaser.Scene {
     if (this.hud) {
       this.hud.setMeterPercentage(this.gameHealth / 100);
     }
+    this.totalTime = this.hud.currTime;
     if (this.gameHealth === 0) {
       setTimeout(this.gameOver, 1500);
     }
