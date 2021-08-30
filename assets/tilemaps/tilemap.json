@@ -21966,6 +21966,35 @@
                  "width":32,
                  "x":1952,
                  "y":1120
+                }, 
+                {
+                 "height":0,
+                 "id":4999,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":7232,
+                 "y":224
+                }, 
+                {
+                 "height":19,
+                 "id":5002,
+                 "name":"",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Roboto",
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"Text",
+                 "visible":true,
+                 "width":83,
+                 "x":7328,
+                 "y":160
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -21985,8 +22014,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":4998,
+ "nextlayerid":5,
+ "nextobjectid":5003,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

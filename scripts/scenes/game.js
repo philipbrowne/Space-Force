@@ -63,6 +63,11 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    this.load.bitmapFont(
+      'Roboto',
+      'assets/fonts/Roboto.png',
+      'assets/fonts/Roboto.xml'
+    );
   }
 
   create(data) {
@@ -124,6 +129,47 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.mainCam = this.cameras.cameras[0];
+    // In Game Text Messages
+    this.cp1Text = this.add.bitmapText(
+      7310,
+      2527,
+      'Roboto',
+      'Checkpoint #1',
+      24,
+      0
+    );
+    this.cp2Text = this.add.bitmapText(
+      64,
+      1760,
+      'Roboto',
+      'Checkpoint #2',
+      24,
+      0
+    );
+    this.cp3Text = this.add.bitmapText(
+      7424,
+      1056,
+      'Roboto',
+      'Checkpoint #3',
+      24,
+      0
+    );
+    this.cp4Text = this.add.bitmapText(
+      96,
+      608,
+      'Roboto',
+      'Checkpoint #4',
+      24,
+      0
+    );
+    this.endText = this.add.bitmapText(
+      7200,
+      40,
+      'Roboto',
+      "Congratulations! Here's your star!",
+      24,
+      0
+    );
   }
 
   addHero() {
@@ -249,6 +295,10 @@ class GameScene extends Phaser.Scene {
       allowGravity: false,
     });
     this.star = this.physics.add.group({
+      immovable: true,
+      allowGravity: false,
+    });
+    this.mapText = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
