@@ -16,6 +16,8 @@ Oh no! Captain Jimmy McSpacerton is lost on Mars.  Help Jimmy search for the elu
 
   ![](https://space-force-game.netlify.app/assets/images/screenshot.png)
 
+Demo Video: https://space-force-game.netlify.app/assets/video/Space-Force-Demo.mp4
+
 ## CONTROLS
 
 - **Move Left** Press A, the Left Arrow key , or click/touch the button on the screen.
