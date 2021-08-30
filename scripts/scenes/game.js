@@ -481,7 +481,7 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     if (this.hud) {
-      if (Phaser.Input.Keyboard.JustDown(this.shiftKey)) {
+      if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
         if (
           this.hud.leftButton.visible &&
           this.hud.rightButton.visible &&
