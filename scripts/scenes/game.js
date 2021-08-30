@@ -184,10 +184,10 @@ class GameScene extends Phaser.Scene {
       0
     );
     this.welcomeText7 = this.add.bitmapText(
-      6120,
+      6100,
       2650,
       'Roboto',
-      'Medkits will restore 50% of your health and provide a checkpoint to save your current progress in this game!',
+      'Health packs will restore 50% of your health and provide a checkpoint to save your current progress in this game!',
       24,
       0
     );
