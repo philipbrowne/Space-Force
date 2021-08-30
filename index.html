@@ -20,7 +20,7 @@
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
+            <div class="container-fluid" id="navbarcontainer">
                 <a class="navbar-brand text-warning" href="#">SPACE FORCE</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-warning" href="#team">Our Team</a>
                         </li>
+                        <li class="nav-item d-xs-block d-sm-block d-md-block d-lg-none d-xl-none">
+                            <a class="nav-link text-warning" href="game.html">Play Space Force</a>
+                        </li>
                     </ul>
+                </div>
+                <div class="d-none d-lg-flex">
+                    <a href="game.html"><button class="btn btn-outline-warning" type="submit">Play Space
+                            Force</button></a>
                 </div>
             </div>
         </nav>
