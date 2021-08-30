@@ -68,8 +68,8 @@ class GameScene extends Phaser.Scene {
   create(data) {
     // Starting Coordinates for Player at Beginning of Map - updated when player reaches checkpoints/healing objects
     this.startCoords = {
-      x: 64,
-      y: 3264,
+      x: 112,
+      y: 3135,
     };
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
