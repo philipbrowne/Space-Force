@@ -52,8 +52,6 @@ Our game is live [here](https://space-force-game.netlify.app/).
 
 Open the page in Google Chrome/Mozilla Firefox/Microsoft Edge at http://localhost:8000/
 
-## Our Team
+## Developer
 
-- [Jesse Brink](https://www.linkedin.com/in/jesse-brink-0682/)
 - [Phil Browne](https://www.linkedin.com/in/philbrownetech/)
-

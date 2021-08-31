@@ -44,6 +44,9 @@ h2 {
   font-weight: 300;
 }
 
+#dev-img img {
+  max-width: 400px !important;
+}
 #soldierimg {
   max-width: 500px;
 }
