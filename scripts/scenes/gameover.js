@@ -1,3 +1,4 @@
+// Game Over UI when Player has reached zero health
 class GameOverScene extends Phaser.Scene {
   constructor() {
     super({ key: 'GameOverScene', active: false });
@@ -47,6 +48,7 @@ class GameOverScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
   }
+  // Triggers transition to new Game
   restart() {
     this.hud = game.scene.scenes[1];
     this.gameScene = game.scene.scenes[0];

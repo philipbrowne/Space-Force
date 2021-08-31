@@ -1,3 +1,4 @@
+// End of Game (win)  UI when Player has found star at top of level
 class WinGameScene extends Phaser.Scene {
   constructor() {
     super({ key: 'WinGameScene', active: false });
@@ -45,6 +46,7 @@ class WinGameScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
   }
+  // Triggers transition to new Game
   restart() {
     this.gameScene = game.scene.scenes[0];
     this.hud = game.scene.scenes[1];

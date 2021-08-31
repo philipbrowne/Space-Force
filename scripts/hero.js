@@ -7,8 +7,11 @@ class Hero extends Phaser.GameObjects.Sprite {
 
     this.anims.play('hero-still');
     this.body.setCollideWorldBounds(true);
+    // Default Collision rectangle for Hero Sprite
     this.body.setSize(65, 130);
+    // Maximum Velocity for Horizontal and Vertical movement
     this.body.setMaxVelocity(350, 500);
+    // Sets the hero's horizontal drag in pixels per second squared
     this.body.setDragX(700);
     this.setOrigin(0.5, 1);
     this.dirKeys = scene.cursorKeys;
@@ -16,18 +19,19 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.dKey = scene.dKey;
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
-    var hx = this.color === 'blue' ? 110 : -40;
     this.input = {};
+    // Movement state machine
     this.movement();
+    // Animation state machine
     this.animations();
     this.jumpKey();
-    this.health;
   }
 
   //   https://github.com/jakesgordon/javascript-state-machine
   //   states of movement for hero character
   movement() {
     this.moveState = new StateMachine({
+      // Initializes in standing movement state
       init: 'standing',
       // Valid movement states to transition to and from
       transitions: [
@@ -44,14 +48,19 @@ class Hero extends Phaser.GameObjects.Sprite {
       // Movement side effects for jump and death
       methods: {
         onJump: () => {
+          // Sets Vertical Upward Velocity to 400 pixels per second before going downward with in-game gravity
           this.body.setVelocityY(-400);
         },
         onHurt: () => {
+          // Stops horizontal movement and sets Upward Velocity to 300 pixels per second before going downward with in-game gravity
           this.body.setVelocity(0, -300);
+          // Stops all acceleration
           this.body.setAcceleration(0);
         },
         onWin: () => {
+          // Stops horizontal movement and sets Upward Velocity to 200 pixels per second before going downward with in-game gravity - brief victory animation before going to winGame scene
           this.body.setVelocity(0, -200);
+          // Stops all acceleration
           this.body.setAcceleration(0);
         },
       },
@@ -59,12 +68,15 @@ class Hero extends Phaser.GameObjects.Sprite {
     //   Establishing logic for each movement transition
     this.movePredicates = {
       jump: () => {
+        // Any of the jump inputs being pressed
         return this.input.pressedJump;
       },
       fall: () => {
+        // Hero's body being off the in-game floor
         return !this.body.onFloor();
       },
       land: () => {
+        // Hero's body returning to the in-game floor
         return this.body.onFloor();
       },
     };
@@ -91,7 +103,6 @@ class Hero extends Phaser.GameObjects.Sprite {
         onEnterState: (lifecycle) => {
           // plays animation from game.js file
           this.anims.play(`hero-${lifecycle.to}`);
-          // Prints current animation state in console for debugging purposes
         },
       },
     });
@@ -119,7 +130,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       },
     };
   }
-  // Jump Inputs - more can be added in future
+  // Jump Inputs via Key or Clicking/Touching Jump Button on Screen
   jumpKey() {
     if (
       Phaser.Input.Keyboard.JustDown(this.dirKeys.up) ||
@@ -141,6 +152,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
   }
 
+  // Triggers Win Event
   win() {
     if (this.moveState.can('win')) {
       this.moveState.win();
@@ -154,6 +166,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     return this.moveState.is('hurt');
   }
 
+  // Creates a check for whether character has won to prepare transition to winGame scene
   isWinning() {
     return this.moveState.is('winning');
   }
@@ -162,6 +175,8 @@ class Hero extends Phaser.GameObjects.Sprite {
     if (game.scene.scenes[1]) {
       this.hud = game.scene.scenes[1];
     }
+    // Input logic for on-screen buttons - left arrow, right arrow, and up arrow
+    // Input Logic for Left On-Screen Button
     if (this.hud.leftButton) {
       this.hud.leftButton.on('pointerdown', () => {
         this.leftTouch = true;
@@ -170,6 +185,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.leftTouch = false;
       });
     }
+    // Input Logic for Right On-Screen Button
     if (this.hud.rightButton) {
       this.hud.rightButton.on('pointerdown', () => {
         this.rightTouch = true;
@@ -179,6 +195,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.rightTouch = false;
       });
     }
+    // Input Logic for Up On-Screen Button
     if (this.hud.upButton) {
       this.hud.upButton.on('pointerdown', () => {
         this.jumpTouch = true;
@@ -189,26 +206,40 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
     super.preUpdate(time, delta);
     this.input.pressedJump = this.jumpKey();
+    // Movement logic for directional movement
     if (
+      // If the hero is neither currently hurt nor in transition to winGame
       !this.isHurt() &&
       !this.isWinning() &&
+      // If any of left-movement inputs have been pressed
       (this.dirKeys.left.isDown || this.aKey.isDown || this.leftTouch)
     ) {
+      // Sets left acceleration to 1500 pixels per second squared
       this.body.setAccelerationX(-1500);
+      // Flips sprite the opposite direction to face left instead of the default
       this.setFlipX(true);
+      // Manipulates collision square accordingly to accurately represent where sprite is on screen
       this.body.offset.x = 25;
     } else if (
+      // If the hero is neither currently hurt nor in transition to winGame
       !this.isHurt() &&
       !this.isWinning() &&
+      // If any of right-movement inputs have been pressed
       (this.dirKeys.right.isDown || this.dKey.isDown || this.rightTouch)
     ) {
+      // Sets right acceleration to 1500 pixels per second squared
       this.body.setAccelerationX(1500);
+      // Remove flip of body and returns it to the default facing right
       this.setFlipX(false);
+      // Manipulates collision square accordingly to accurately represent where sprite is on screen
       this.body.offset.x = 20;
     } else {
+      // Stops all acceleration in either direction
       this.body.setAccelerationX(0);
     }
+    // If jump input has been pressed and character is currently on the floor, making jump valid
     if (this.input.pressedJump && this.body.onFloor()) {
+      // Sets Upward Vertical velocity to 400 pixels per second
       this.body.setVelocityY(-400);
     }
     // Determining which movement state is currently valid

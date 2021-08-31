@@ -6,6 +6,7 @@ class GameScene extends Phaser.Scene {
   init(data) {}
 
   preload() {
+    // Preloading Spritesheets for map - assets sourced from publicly available materials on https://itch.io/game-assets/ - some tiles also created by Emma Pines-Schwartz
     this.load.tilemapTiledJSON('tileset', '../../assets/tilemaps/tilemap.json');
     this.load.spritesheet('tile-sheet', '../../assets/tilesets/tileset.png', {
       frameWidth: 32,
@@ -13,8 +14,10 @@ class GameScene extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
+    // Background Created by Emma Pines-Schwartz
     this.load.image('background', '../../assets/backgrounds/mars2.png');
 
+    // Spritesheets for Hero Character - purchased by developer and sourced here: https://graphicriver.net/item/space-wars-character-sprites/11906902
     this.load.spritesheet(
       'hero-run-sheet',
       '../../assets/hero/hero-run/hero-run-140px.png',
@@ -63,6 +66,7 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    // Fonts sourced from Google Fonts
     this.load.bitmapFont(
       'Roboto',
       '../../assets/fonts/Roboto.png',
@@ -76,19 +80,23 @@ class GameScene extends Phaser.Scene {
   }
 
   create(data) {
-    // Starting Coordinates for Player at Beginning of Map - updated when player reaches new check points via medkits
+    // Starting Coordinates for Player at Beginning of Map - updated when player reaches new check points via health packs
     this.startCoords = {
       x: 112,
       y: 3135,
     };
-
+    // Referencing hud.js scene
     this.hud = game.scene.scenes[1];
+    // Additional inputs for directional movement
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
     this.wKey = this.input.keyboard.addKey('W');
+    // Cursor Keys for Directional Movement
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    // On-Screen background
     let bg = this.add.image(0, 0, 'background').setOrigin(0);
     bg.setScrollFactor(0.2);
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    // Animation sheets for Hero based on Spritesheets above
     this.anims.create({
       key: 'hero-running',
       frames: this.anims.generateFrameNumbers('hero-run-sheet'),
@@ -123,9 +131,11 @@ class GameScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-
+    // Health for hero - I have used it as a game instance variable rather than a hero instance variable because there are new instances of the hero every time he is hurt
     this.gameHealth = 100;
+    // Generates the map
     this.addMap();
+    // Creates a new instance of the Hero class
     this.addHero();
     this.cameras.main.setBounds(
       0,
@@ -134,7 +144,7 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.mainCam = this.cameras.cameras[0];
-    // In Game Text Messages
+    // On-Screen Messages using bitmapText
     this.welcomeText1 = this.add.bitmapText(
       32,
       2920,
@@ -232,6 +242,7 @@ class GameScene extends Phaser.Scene {
       24,
       0
     );
+    // Logic for toggling Touch Buttons, displayed in HUD and can also be controlled with TAB key
     if (this.hud.toggleButton) {
       this.hud.toggleButton.on('pointerdown', () => {
         if (
@@ -247,7 +258,7 @@ class GameScene extends Phaser.Scene {
     }
     this.tabKey = this.input.keyboard.addKey('TAB', true);
   }
-
+  // Method creates new instance of Hero at the provided startCoords
   addHero() {
     this.hero = new Hero(this, this.startCoords.x, this.startCoords.y);
     this.cameras.main.startFollow(this.hero);
@@ -263,7 +274,7 @@ class GameScene extends Phaser.Scene {
         this.hero.hurt();
       }
     );
-
+    // Each Healer object triggers 50% health recovery and a new startCoords object that functions as an in-game check-point
     const healer1Physics = this.physics.add.overlap(
       this.hero,
       this.healer1,
@@ -302,13 +313,14 @@ class GameScene extends Phaser.Scene {
         this.startCoords = { x: 560, y: 865 };
       }
     );
+    // The Star, located at the top of the level, triggers a transition to winGame scene
     const starPhysics = this.physics.add.overlap(this.hero, this.star, () => {
       this.starObj.destroy();
       this.hero.win();
       setTimeout(this.winGame, 2500);
     });
 
-    // Triggered by hurt event emission - removes colliders from the current hero instance before respawning a new one. Deducts 25 points from gameHealth
+    // Triggered by hurt event emission - removes colliders from the current hero instance and destroying the current hero instance, before creating a new one. Deducts 25 points from gameHealth
     this.hero.on('hurt', () => {
       this.gameHealth -= 25;
       groundPhysics.destroy();
@@ -324,18 +336,19 @@ class GameScene extends Phaser.Scene {
       this.cameras.main.stopFollow();
     });
   }
-
+  // Can be used in debugging to locate a specific object in relation to the camera
   getRelativePositionToCanvas(gameObject, camera) {
     return {
       x: (gameObj.x - camera.worldView.x) * camera.zoom,
       y: (gameObj.y - camera.worldView.y) * camera.zoom,
     };
   }
-
+  // Generates the in-game map/level
   addMap() {
     this.map = this.make.tilemap({ key: 'tileset' });
     const groundTiles = this.map.addTilesetImage('tileset', 'tile-sheet');
     const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
+    // References tiles on Tileset that are collidable with Hero and can be contacted with no damage to hero
     groundLayer.setCollision(_.range(1, 9), true);
     groundLayer.setCollision(_.range(10, 26), true);
     groundLayer.setCollision(_.range(31, 37), true);
@@ -350,10 +363,12 @@ class GameScene extends Phaser.Scene {
       this.map.heightInPixels
     );
     this.physics.world.setBoundsCollision(true, true, false, true);
+    // Obstacle objects generated via tileset JSON, created using Tiled Open Source Application: https://www.mapeditor.org/
     this.obstacles = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
+    // Healer Objects representing Health Packs on level
     this.healer1 = this.physics.add.group({
       immovable: true,
       allowGravity: false,
@@ -370,14 +385,12 @@ class GameScene extends Phaser.Scene {
       immovable: true,
       allowGravity: false,
     });
+    // Star object representing Star object at top of level
     this.star = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
-    this.mapText = this.physics.add.group({
-      immovable: true,
-      allowGravity: false,
-    });
+    // Iterates through Objects from Tileset and determines how to handle each
     this.map.getObjectLayer('Objects').objects.forEach((object) => {
       if (object.type === 'Obstacle') {
         const obstacle = this.obstacles.create(
@@ -452,14 +465,14 @@ class GameScene extends Phaser.Scene {
       }
     });
   }
-  // Returns current position of hero on map
+  // Returns current position of hero on map, can be used for debugging purposes
   getHeroPosition() {
     return {
       x: this.hero.getBounds().x,
       y: this.hero.getBounds().y,
     };
   }
-
+  // Triggers transition to gameOver scene, ending current game
   gameOver() {
     const hud = game.scene.scenes[1];
     const gameOverScene = game.scene.scenes[2];
@@ -469,7 +482,7 @@ class GameScene extends Phaser.Scene {
     gameScene.scene.stop();
     game.scene.start(gameOverScene);
   }
-
+  // Triggers transition to winGame scene, ending current game
   winGame() {
     const hud = game.scene.scenes[1];
     const winGameScene = game.scene.scenes[3];
@@ -481,6 +494,7 @@ class GameScene extends Phaser.Scene {
 
   update(time, delta) {
     if (this.hud) {
+      // Triggers toggle of on-screen inputs for Left/Right/Up - default is ON
       if (Phaser.Input.Keyboard.JustDown(this.tabKey)) {
         if (
           this.hud.leftButton.visible &&
@@ -493,16 +507,21 @@ class GameScene extends Phaser.Scene {
         }
       }
     }
+    // In place to keep in-game health from going above 100
     if (this.gameHealth > 100) {
       this.gameHealth = 100;
     }
+    // Constantly updating HUD healthbar to represent current gameHealth
     if (this.hud) {
       this.hud.setMeterPercentage(this.gameHealth / 100);
     }
+    // Referencing Timer created by HUD
     this.totalTime = this.hud.currTime;
+    // Triggers gameOver transition if gameHealth reaches zero
     if (this.gameHealth === 0) {
       setTimeout(this.gameOver, 1500);
     }
+    // Bottom view of camera, making a smooth transition when hero is hurt and keeping camera from following hero beyond the point where he is off the map
     const bottomOfView = this.cameras.main.getWorldPoint(
       0,
       this.cameras.main.height

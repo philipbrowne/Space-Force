@@ -3,7 +3,7 @@ class HudScene extends Phaser.Scene {
     super({ key: 'HudScene', active: true });
   }
   preload() {
-    // HealthBar courtesy of https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/
+    // HealthBar assets and code courtesy of https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/
     this.load.image(
       'left-cap',
       '../../assets/healthbar/barHorizontal_green_left.png'
@@ -29,6 +29,7 @@ class HudScene extends Phaser.Scene {
       'right-cap-shadow',
       '../../assets/healthbar/barHorizontal_shadow_right.png'
     );
+    // Arrow Buttons courtesy of https://publicdomainvectors.org/en/open-source-clipart-icons
     this.load.image('left-button', '../../assets/gamepad/left-arrow-orig.png');
     this.load.image(
       'right-button',
@@ -48,10 +49,13 @@ class HudScene extends Phaser.Scene {
     this.fullWidth = 300;
   }
   create() {
+    // Adding pointer allowing multiple touch inputs simultaneously for mobile use
     game.input.addPointer();
+    // Directional Buttons
     this.leftButton = this.add.image(240, 820, 'left-button');
     this.rightButton = this.add.image(750, 820, 'right-button');
     this.upButton = this.add.image(1650, 820, 'up-button');
+    // Allows toggle of display of on-screen Arrow Buttons - default is ON
     this.toggleButton = this.add.image(130, 75, 'empty-button');
     this.toggleButtonText = this.add
       .text(130, 75, 'Toggle Touch Buttons', {
@@ -61,9 +65,11 @@ class HudScene extends Phaser.Scene {
       .setOrigin(0.5);
     this.toggleButton.alpha = 0.7;
     this.toggleButtonText.alpha = 1;
+    // Provides translucency to Touch Input Buttons to improve visibility of in-game level and user experience
     this.leftButton.alpha = 0.17;
     this.rightButton.alpha = 0.17;
     this.upButton.alpha = 0.17;
+    // Creates new in-game timer
     this.gameTime = this.time.addEvent({
       delay: 6000000,
       callback: this.onClockEvent,
@@ -71,6 +77,7 @@ class HudScene extends Phaser.Scene {
       repeat: 1,
     });
     this.currTime;
+    // Allows touch/click input with on-screen input buttons
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
@@ -78,7 +85,7 @@ class HudScene extends Phaser.Scene {
     this.toggleButtonText.setInteractive();
     const y = 24;
     const x = 10;
-    // background shadow
+    // background shadow - source of code is from https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/
     const leftShadowCap = this.add
       .image(x, y, 'left-cap-shadow')
       .setOrigin(0, 0.5);
@@ -107,7 +114,7 @@ class HudScene extends Phaser.Scene {
       .setOrigin(0, 0.5);
 
     this.setMeterPercentage(1);
-    // In Game Timer - Source for Function
+    // In Game Timer - Source for Timer Method: https://www.html5gamedevs.com/topic/1870-in-game-timer/
     this.timeButton = this.add.image(972, 35, 'time-button');
     this.timeText = this.add.text(890, 20, '', {
       fontSize: 35,
@@ -116,10 +123,9 @@ class HudScene extends Phaser.Scene {
     this.timeButton.alpha = 0.6;
     this.timeText.alpha = 1;
   }
-
+  // Updates Health Bar based on a percentage value - we are using gameHealth from game.js in conjunction with this UI element
   setMeterPercentage(percent = 1, duration = 1000) {
     const width = this.fullWidth * percent;
-
     this.tweens.add({
       targets: this.middle,
       displayWidth: width,
@@ -134,7 +140,7 @@ class HudScene extends Phaser.Scene {
       },
     });
   }
-
+  // Removes On-Screen Arrow Inputs from Visibility
   hideTouchButtons() {
     this.leftButton.visible = false;
     this.leftButton.disableInteractive();
@@ -144,6 +150,7 @@ class HudScene extends Phaser.Scene {
     this.upButton.disableInteractive();
     this.toggleButtonText.setText('Show Touch Buttons');
   }
+  // Returns On-Screen Arrow Inputs to Visibility
   showTouchButtons() {
     this.leftButton.visible = true;
     this.leftButton.setInteractive();
@@ -164,10 +171,12 @@ class HudScene extends Phaser.Scene {
     if (this.seconds < 10) this.seconds = '0' + this.seconds;
     if (this.minutes < 10) this.minutes = '0' + this.minutes;
     this.currTime = this.minutes + ':' + this.seconds + ':' + this.milliseconds;
+    // Updates on-screen text for time ellapsed in current game
     this.timeText.setText(this.currTime);
   }
 
   update() {
+    // Updates Timer and on-screen text for timer
     this.updateTimer();
   }
 }
