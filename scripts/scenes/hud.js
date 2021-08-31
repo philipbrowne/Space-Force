@@ -6,31 +6,43 @@ class HudScene extends Phaser.Scene {
     // HealthBar courtesy of https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/
     this.load.image(
       'left-cap',
-      'assets/healthbar/barHorizontal_green_left.png'
+      '../../assets/healthbar/barHorizontal_green_left.png'
     );
-    this.load.image('middle', 'assets/healthbar/barHorizontal_green_mid.png');
+    this.load.image(
+      'middle',
+      '../../assets/healthbar/barHorizontal_green_mid.png'
+    );
     this.load.image(
       'right-cap',
-      'assets/healthbar/barHorizontal_green_right.png'
+      '../../assets/healthbar/barHorizontal_green_right.png'
     );
 
     this.load.image(
       'left-cap-shadow',
-      'assets/healthbar/barHorizontal_shadow_left.png'
+      '../../assets/healthbar/barHorizontal_shadow_left.png'
     );
     this.load.image(
       'middle-shadow',
-      'assets/healthbar/barHorizontal_shadow_mid.png'
+      '../../assets/healthbar/barHorizontal_shadow_mid.png'
     );
     this.load.image(
       'right-cap-shadow',
-      'assets/healthbar/barHorizontal_shadow_right.png'
+      '../../assets/healthbar/barHorizontal_shadow_right.png'
     );
-    this.load.image('left-button', 'assets/gamepad/left-arrow-orig.png');
-    this.load.image('right-button', 'assets/gamepad/right-arrow-orig.png');
-    this.load.image('up-button', 'assets/gamepad/up-arrow-orig.png');
-    this.load.image('empty-button', 'assets/buttons/greenbutton-260x65.png');
-    this.load.image('time-button', 'assets/buttons/blue-button-210x63.png');
+    this.load.image('left-button', '../../assets/gamepad/left-arrow-orig.png');
+    this.load.image(
+      'right-button',
+      '../../assets/gamepad/right-arrow-orig.png'
+    );
+    this.load.image('up-button', '../../assets/gamepad/up-arrow-orig.png');
+    this.load.image(
+      'empty-button',
+      '../../assets/buttons/greenbutton-260x65.png'
+    );
+    this.load.image(
+      'time-button',
+      '../../assets/buttons/blue-button-210x63.png'
+    );
   }
   init() {
     this.fullWidth = 300;

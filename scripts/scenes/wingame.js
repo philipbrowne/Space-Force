@@ -6,7 +6,7 @@ class WinGameScene extends Phaser.Scene {
   preload() {
     this.load.spritesheet(
       'win-game-sheet',
-      'assets/hero/hero-win/hero-win-280px.png',
+      '../../assets/hero/hero-win/hero-win-280px.png',
       {
         frameWidth: 170,
         frameHeight: 280,

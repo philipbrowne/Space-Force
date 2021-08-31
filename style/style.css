@@ -53,7 +53,8 @@ h2 {
 }
 
 #front {
-  background-image: url('/assets/images/mars-bg.jpg');
+  /* Background Created by Emma Pines-Schwartz */
+  background-image: url('../assets/images/mars-bg.jpg');
   background-size: cover;
   color: black;
 }

@@ -30,7 +30,7 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 
 ![](https://space-force-game.netlify.app/assets/images/screenshot-3.png)
 
-![](https://space-force-game.netlify.app/assets/images/screenshot-5.png)
+![](https://space-force-game.netlify.app/assets/images/screenshot-5.png
 
 **Video Demo:**
 
@@ -40,7 +40,18 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 
 Our game is live [here](https://space-force-game.netlify.app/).
 
+**To deploy locally using Python 3, run the following commands in your terminal:**
+
+`git clone https://github.com/philipbrowne/Space-Force`
+
+`cd Space-Force`
+
+`python -m http.server 8000`
+
+Open the page in Google Chrome/Mozilla Firefox/Microsoft Edge at http://localhost:8000/
+
 ## Our Team
 
 - [Jesse Brink](https://www.linkedin.com/in/jesse-brink-0682/)
 - [Phil Browne](https://www.linkedin.com/in/philbrownetech/)
+

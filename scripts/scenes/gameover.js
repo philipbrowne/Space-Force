@@ -6,7 +6,7 @@ class GameOverScene extends Phaser.Scene {
   preload() {
     this.load.spritesheet(
       'game-over-sheet',
-      'assets/hero/hero-hurt/hero-hurt-280px.png',
+      '../../assets/hero/hero-hurt/hero-hurt-280px.png',
       {
         frameWidth: 250,
         frameHeight: 280,

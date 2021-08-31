@@ -6,18 +6,18 @@ class GameScene extends Phaser.Scene {
   init(data) {}
 
   preload() {
-    this.load.tilemapTiledJSON('tileset', 'assets/tilemaps/tilemap.json');
-    this.load.spritesheet('tile-sheet', 'assets/tilesets/tileset.png', {
+    this.load.tilemapTiledJSON('tileset', '../../assets/tilemaps/tilemap.json');
+    this.load.spritesheet('tile-sheet', '../../assets/tilesets/tileset.png', {
       frameWidth: 32,
       frameHeight: 32,
       margin: 1,
       spacing: 2,
     });
-    this.load.image('background', 'assets/backgrounds/mars2.png');
+    this.load.image('background', '../../assets/backgrounds/mars2.png');
 
     this.load.spritesheet(
       'hero-run-sheet',
-      'assets/hero/hero-run/hero-run-140px.png',
+      '../../assets/hero/hero-run/hero-run-140px.png',
       {
         frameWidth: 108,
         frameHeight: 140,
@@ -25,7 +25,7 @@ class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       'hero-jump-sheet',
-      'assets/hero/hero-jump/hero-jump-140px.png',
+      '../../assets/hero/hero-jump/hero-jump-140px.png',
       {
         frameWidth: 84,
         frameHeight: 140,
@@ -33,7 +33,7 @@ class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       'hero-fall-sheet',
-      'assets/hero/hero-fall/hero-fall-140px.png',
+      '../../assets/hero/hero-fall/hero-fall-140px.png',
       {
         frameWidth: 84,
         frameHeight: 140,
@@ -41,7 +41,7 @@ class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       'hero-still-sheet',
-      'assets/hero/hero-still/hero-still-140px.png',
+      '../../assets/hero/hero-still/hero-still-140px.png',
       {
         frameWidth: 54,
         frameHeight: 140,
@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       'hero-hurt-sheet',
-      'assets/hero/hero-hurt/hero-hurt-140px.png',
+      '../../assets/hero/hero-hurt/hero-hurt-140px.png',
       {
         frameWidth: 125,
         frameHeight: 140,
@@ -57,7 +57,7 @@ class GameScene extends Phaser.Scene {
     );
     this.load.spritesheet(
       'hero-win-sheet',
-      'assets/hero/hero-win/hero-win-140px.png',
+      '../../assets/hero/hero-win/hero-win-140px.png',
       {
         frameWidth: 85,
         frameHeight: 140,
@@ -65,13 +65,13 @@ class GameScene extends Phaser.Scene {
     );
     this.load.bitmapFont(
       'Roboto',
-      'assets/fonts/Roboto.png',
-      'assets/fonts/Roboto.xml'
+      '../../assets/fonts/Roboto.png',
+      '../../assets/fonts/Roboto.xml'
     );
     this.load.bitmapFont(
       'Black-Ops-One',
-      'assets/fonts/BlackOpsOne.png',
-      'assets/fonts/BlackOpsOne.xml'
+      '../../assets/fonts/BlackOpsOne.png',
+      '../../assets/fonts/BlackOpsOne.xml'
     );
   }
 
@@ -232,7 +232,7 @@ class GameScene extends Phaser.Scene {
       24,
       0
     );
-    if (this.hud) {
+    if (this.hud.toggleButton) {
       this.hud.toggleButton.on('pointerdown', () => {
         if (
           this.hud.leftButton.visible &&
