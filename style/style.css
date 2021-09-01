@@ -67,6 +67,10 @@ h2 {
   text-align: center;
 }
 
+#developer a:hover {
+  color: rgb(252, 191, 38) !important;
+}
+
 @media (max-width: 800px) {
   #soldierimg {
     max-width: 300px;
