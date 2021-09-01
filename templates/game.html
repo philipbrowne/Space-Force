@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Space Force</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+        <script src=" https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+            integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-state-machine/3.1.0/state-machine.min.js"
+            integrity="sha512-aRTzCISFnAu5pARm2OGMlbnraoL9F3aD86kY7QXr3roOI7hrHi5Xejz42wtTGrbUMrcXLRaOQZO9O3JTOB2dbg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <style>
+            html,
+            body {
+                height: 10%;
+                margin: 0;
+                padding: 0;
+                background-color: #000000;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="phaser-game"></div>
+        <div hidden id="data"></div>
+        <div hidden id="username">{{username}}</div>
+        <div hidden>Current</div>
+        <div hidden>High Score</div>
+        <script type="text/javascript">
+            const username = '{{ user.username }}'
+            const timesPlayed = '{{user.times_played}}'
+            {% if user.best_time %}
+            const bestTime = parseFloat('{{user.best_time}}')
+            {% else %}
+            const bestTime = null
+            {% endif %}
+            const personalBest = '{{user.personal_best}}'
+            const totalCompletions = parseInt('{{user.total_completions}}')
+        </script>
+        <script src="scripts/config.js"></script>
+        <script src="scripts/hero.js"></script>
+        <script src="scripts/scenes/game.js"></script>
+        <script src="scripts/scenes/hud.js"></script>
+        <script src="scripts/scenes/gameover.js"></script>
+        <script src="scripts/scenes/wingame.js"></script>
+        <script src="scripts/index.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %} <h2 class="text-warning spacefont fs-1">TOP TEN COMPLETION TIMES:</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="text-warning">USERNAME</th>
+                <th scope="col" class="text-warning">COMPLETION TIME</th>
+                <th scope="col" class="text-warning">DATE</th>
+            </tr>
+        </thead>
+        <tbody> {% for score in scores %} <tr>
+                <th scope="row" class="text-warning">{{score.username}}</th>
+                <td class="text-warning">{{score.print_time}}</td>
+                <td class="text-warning">{{score.date}}</td>
+            </tr> {% endfor %} </tbody>
+    </table>
+    <div class="my-3 d-flex justify-content-center"><a href="/game"
+            class="btn btn-outline-success btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Play Space Force <i
+                class="fas fa-gamepad mx-2"></i></a></div>
+    <div class="d-flex justify-content-center"><a href="/"
+            class="btn btn-outline-primary btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Return to Landing Page <i
+                class="fas fa-home mx-2"></i></a></div> {% endblock %}

@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
+body {
+  background-color: #571600;
+  color: #fff;
+}
+nav {
+  font-size: 1.1rem;
+}
+
+#navbarcontainer {
+  background-color: #b23e19 !important;
+}
+
+#navbarcontainer a {
+  font-family: 'Black Ops One', sans-serif !important;
+  color: black !important;
+}
+
+#navbarcontainer a:hover {
+  color: rgb(252, 191, 38) !important;
+}
+
+.navbar-brand {
+  font-size: 2rem;
+}
+h1 {
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: 'Black Ops One', sans-serif !important;
+}
+
+.spacefont {
+  font-family: 'Black Ops One', sans-serif !important;
+}
+.bg-cards {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.story {
+  font-weight: 300;
+}
+
+#dev-img img {
+  max-width: 400px !important;
+}
+#soldierimg {
+  max-width: 500px;
+}
+
+#keys {
+  max-width: 500px;
+}
+
+#front {
+  /* Background Created by Emma Pines-Schwartz */
+  background-image: url('../assets/images/mars-bg.jpg');
+  background-size: cover;
+  color: black;
+}
+
+#front h1 {
+  font-family: 'Black Ops One';
+  text-align: center;
+}
+
+#developer a:hover {
+  color: rgb(252, 191, 38) !important;
+}
+
+#user-email a:hover {
+  color: rgb(252, 191, 38) !important;
+}
+
+@media (max-width: 800px) {
+  #soldierimg {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+  #soldierimg {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  video {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 450px) {
+  video {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 300px) {
+  video {
+    max-width: 250px;
+  }
+}
