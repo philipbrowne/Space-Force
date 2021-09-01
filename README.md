@@ -38,17 +38,25 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 
 ## Deployment Link
 
-Our game is live [here](https://space-force-game.netlify.app/).
+The game is live [here](https://space-force-game.herokuapp.com/).
 
 ## Local Deployment
 
-**To deploy locally using Python 3, run the following commands in your terminal:**
+**To deploy locally using Python 3.711 and Flask, run the following commands in your terminal:**
 
 `git clone https://github.com/philipbrowne/Space-Force`
 
 `cd Space-Force`
 
-`python -m http.server 8000`
+`python3.7 -m venv venv`
+
+`source venv/bin/activate`
+
+`pip install -r requirements.txt`
+
+`export FLASK_RUN_PORT=8000`
+
+`flask run`
 
 Open the page in Google Chrome/Mozilla Firefox/Microsoft Edge at http://localhost:8000/
 
