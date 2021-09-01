@@ -2,18 +2,18 @@
 
 ![](https://space-force-game.herokuapp.com/assets/images/header-img.png)
 
-## LEAD A SPACE FORCE OFFICER THROUGH MARS
+## **Lead a Space Force Officer Through Mars**
 
 Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and magical Mintbean Star to help him find his way home!
 
-## HOW TO PLAY
+## **How to Play**
 
 - Guide Captain McSpacerson through the dangerous Mars terrain, avoiding obstacles such as spikes, lava, green poison, fireballs, and more...
 - Running into or stepping on these VERY harmful objects will hurt Jimmy and deduct 25% from his health. Be careful! If you run out of health, it's GAME OVER.
 - However, there’s good news! A very generous inhabitant decided to leave several health packs throughout the level! These health packs will not only restore 50% of Jimmy’s health, but also provide a BRAND NEW checkpoint should Jimmy run into any trouble during his adventures!
 - Traverse across and up the dangerous platform terrain and reach the top where you will find the magical Mintbean Star and achieve GLORIOUS VICTORY!
 
-## CONTROLS
+## **Controls**
 
 - **Move Left** Press A, the Left Arrow key , or click/touch the button on the screen.
 - **Move Right** Press D, the Right Arrow key , or click/touch the button on the screen.
@@ -22,7 +22,7 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 
 ![](https://space-force-game.herokuapp.com/assets/images/keys.png)
 
-## Screenshots and Demo Video Link
+## **Screenshots and Demo Video Link**
 
 ![](https://space-force-game.herokuapp.com/assets/images/screenshot.png)
 
@@ -30,19 +30,17 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 
 ![](https://space-force-game.herokuapp.com/assets/images/screenshot-3.png)
 
-![](https://space-force-game.herokuapp.com/assets/images/screenshot-5.png
+#### **Video Demo:**
 
-**Video Demo:**
+**https://space-force-game.herokuapp.com/assets/video/Space-Force-Demo.mp4**
 
-https://space-force-game.herokuapp.com/assets/video/Space-Force-Demo.mp4
-
-## Deployment Link
+## **Deployment Link**
 
 The game is live [**here**](https://space-force-game.herokuapp.com/).
 
 ## Local Deployment
 
-**To deploy locally using Python 3.711 and Flask, run the following commands in your terminal:**
+**To deploy locally using Python 3.711, pip, and Flask - run the following commands in your terminal:**
 
 `git clone https://github.com/philipbrowne/Space-Force`
 
@@ -62,4 +60,6 @@ Open the page in Google Chrome/Mozilla Firefox/Microsoft Edge at http://localhos
 
 ## Developer
 
-- [Phil Browne](https://www.linkedin.com/in/philbrownetech/)
+**[Phil Browne](https://www.linkedin.com/in/philbrownetech/)**
+
+![](https://space-force-game.herokuapp.com/assets/images/phil.jpg)
