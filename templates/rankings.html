@@ -13,9 +13,12 @@
                 <td class="text-warning">{{score.date}}</td>
             </tr> {% endfor %} </tbody>
     </table>
-    <div class="my-3 d-flex justify-content-center"><a href="/game"
+    </div>
+    </div> {% if session['username'] %} <div class="my-3 d-flex justify-content-center"><a href="/game"
             class="btn btn-outline-success btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Play Space Force <i
-                class="fas fa-gamepad mx-2"></i></a></div>
-    <div class="d-flex justify-content-center"><a href="/"
-            class="btn btn-outline-primary btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Return to Landing Page <i
-                class="fas fa-home mx-2"></i></a></div> {% endblock %}
+                class="fas fa-gamepad mx-2"></i></a></div> {% else %} <div class="my-3 d-flex justify-content-center"><a
+            href="/game" class="btn btn-outline-success btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Log In to Play <i
+                class="fas fa-gamepad mx-2"></i></a></div> {% endif %} <div class="d-flex justify-content-center"><a
+            href="/" class="btn btn-outline-primary btn-lg px-5 mx-3 d-block d-lg-inline fs-6">Return to Landing Page <i
+                class="fas fa-home mx-2"></i></a></div>
+    </div>{% endblock %}

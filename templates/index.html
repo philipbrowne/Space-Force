@@ -15,9 +15,11 @@
                     <p>Oh no! Captain Jimmy McSpacerton is lost on Mars... <i
                             class="fas fa-surprise text-warning"></i><br>Help Jimmy search for the elusive and magical
                         Mintbean Star <i class="far fa-star mx-1 text-warning"></i> to help him find his way home!</p>
-            </div>
-            <div class="my-1"><a href="/game" class="btn btn-outline-warning btn-lg px-5">Start Game</a>
-            </div>
+            </div> {% if session['username'] %} <div class="my-1"><a href="/game"
+                    class="btn btn-outline-warning btn-lg px-5">Start Game</a>
+            </div> {% else %} <div class="my-1"><a href="/register" class="btn btn-outline-warning btn-lg px-5">Register
+                    to Play</a>
+            </div> {% endif %}
     </section>
 </div>
 <!-- Story section End -->
