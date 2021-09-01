@@ -91,13 +91,9 @@ class GameScene extends Phaser.Scene {
 
   create(data) {
     // Starting Coordinates for Player at Beginning of Map - updated when player reaches new check points via health packs
-    // this.startCoords = {
-    //   x: 112,
-    //   y: 3135,
-    // };
     this.startCoords = {
-      x: 7351,
-      y: 181,
+      x: 112,
+      y: 3135,
     };
     // Referencing hud.js scene
     this.hud = game.scene.scenes[1];
