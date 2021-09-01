@@ -1,6 +1,6 @@
 # SPACE FORCE
 
-![](https://space-force-game.netlify.app/assets/images/header-img.png)
+![](https://space-force-game.herokuapp.com/assets/images/header-img.png)
 
 ## LEAD A SPACE FORCE OFFICER THROUGH MARS
 
@@ -20,25 +20,25 @@ Captain Jimmy McSpacerton is lost on Mars. Help Jimmy search for the elusive and
 - **Jump** Press W, the Up Arrow key , the Space Bar, or click/touch the button on the screen.
 - **Toggle Touch Display** Press TAB or click Toggle Touch Buttons on the Upper Left Corner of the Screen
 
-![](https://space-force-game.netlify.app/assets/images/keys.png)
+![](https://space-force-game.herokuapp.com/assets/images/keys.png)
 
 ## Screenshots and Demo Video Link
 
-![](https://space-force-game.netlify.app/assets/images/screenshot.png)
+![](https://space-force-game.herokuapp.com/assets/images/screenshot.png)
 
-![](https://space-force-game.netlify.app/assets/images/screenshot-2.png)
+![](https://space-force-game.herokuapp.com/assets/images/screenshot-2.png)
 
-![](https://space-force-game.netlify.app/assets/images/screenshot-3.png)
+![](https://space-force-game.herokuapp.com/assets/images/screenshot-3.png)
 
-![](https://space-force-game.netlify.app/assets/images/screenshot-5.png
+![](https://space-force-game.herokuapp.com/assets/images/screenshot-5.png
 
 **Video Demo:**
 
-**https://space-force-game.netlify.app/assets/video/Space-Force-Demo.mp4**
+https://space-force-game.herokuapp.com/assets/video/Space-Force-Demo.mp4
 
 ## Deployment Link
 
-The game is live [here](https://space-force-game.herokuapp.com/).
+The game is live [**here**](https://space-force-game.herokuapp.com/).
 
 ## Local Deployment
 
