@@ -76,6 +76,17 @@ class GameScene extends Phaser.Scene {
         frameHeight: 140,
       }
     );
+    // Sound Assets sourced from Zapsplat.com
+    this.load.audio('jump', '../../assets/audio/jump.mp3');
+    this.load.audio('health-pack', '../../assets/audio/health-pack.mp3');
+    this.load.audio('hurt', '../../assets/audio/hurt.mp3');
+    this.load.audio('game-over', '../../assets/audio/game-over.mp3');
+    this.load.audio('win-game', '../../assets/audio/win-game.mp3');
+    this.jumpSound;
+    this.healthPackSound;
+    this.hurtSound;
+    this.gameOverSound;
+    this.winGameSound;
     // Fonts sourced from Google Fonts
     this.load.bitmapFont(
       'Roboto',
@@ -96,7 +107,7 @@ class GameScene extends Phaser.Scene {
       y: 3135,
     };
     // Referencing hud.js scene
-    this.hud = game.scene.scenes[1];
+    this.hud = game.scene.keys.HudScene;
     // Additional inputs for directional movement
     this.aKey = this.input.keyboard.addKey('A');
     this.dKey = this.input.keyboard.addKey('D');
@@ -141,8 +152,17 @@ class GameScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
+    // Sound Assets sourced from Zapsplat.com
+    this.jumpSound = this.sound.add('jump');
+    this.healthPackSound = this.sound.add('health-pack');
+    this.hurtSound = this.sound.add('hurt');
+    this.winGameSound = this.sound.add('win-game');
+    this.gameOverSound = this.sound.add('game-over');
+
     // Health for hero - I have used it as a game instance variable rather than a hero instance variable because there are new instances of the hero every time he is hurt
     this.gameHealth = 100;
+    this.isGameOver = false;
+    this.isGameWon = false;
     // Generates the map
     this.addMap();
     // Creates a new instance of the Hero class
@@ -253,20 +273,9 @@ class GameScene extends Phaser.Scene {
       0
     );
     // Logic for toggling Touch Buttons, displayed in HUD and can also be controlled with TAB key
-    if (this.hud.toggleButton) {
-      this.hud.toggleButton.on('pointerdown', () => {
-        if (
-          this.hud.leftButton.visible &&
-          this.hud.rightButton.visible &&
-          this.hud.upButton.visible
-        ) {
-          this.hud.hideTouchButtons();
-        } else {
-          this.hud.showTouchButtons();
-        }
-      });
-    }
+
     this.tabKey = this.input.keyboard.addKey('TAB', true);
+    this.shiftKey = this.input.keyboard.addKey('SHIFT', true);
   }
   // Method creates new instance of Hero at the provided startCoords
   addHero() {
@@ -282,6 +291,9 @@ class GameScene extends Phaser.Scene {
       this.obstacles,
       () => {
         this.hero.hurt();
+        if (this.gameHealth === 0) {
+          setTimeout(this.gameOver.bind(this), 1500);
+        }
       }
     );
     // Each Healer object triggers 50% health recovery and a new startCoords object that functions as an in-game check-point
@@ -290,6 +302,7 @@ class GameScene extends Phaser.Scene {
       this.healer1,
       () => {
         this.gameHealth += 50;
+        this.healthPackSound.play();
         this.healer1obj.destroy();
         this.startCoords = { x: 7440, y: 2655 };
       }
@@ -300,6 +313,7 @@ class GameScene extends Phaser.Scene {
       this.healer2,
       () => {
         this.gameHealth += 50;
+        this.healthPackSound.play();
         this.healer2obj.destroy();
         this.startCoords = { x: 80, y: 1855 };
       }
@@ -310,6 +324,7 @@ class GameScene extends Phaser.Scene {
       this.healer3,
       () => {
         this.gameHealth += 50;
+        this.healthPackSound.play();
         this.healer3obj.destroy();
         this.startCoords = { x: 7392, y: 1311 };
       }
@@ -319,6 +334,7 @@ class GameScene extends Phaser.Scene {
       this.healer4,
       () => {
         this.gameHealth += 50;
+        this.healthPackSound.play();
         this.healer4obj.destroy();
         this.startCoords = { x: 560, y: 865 };
       }
@@ -327,6 +343,10 @@ class GameScene extends Phaser.Scene {
     const starPhysics = this.physics.add.overlap(this.hero, this.star, () => {
       this.starObj.destroy();
       this.hero.win();
+      this.winTime = this.hud.currTime;
+      this.winTimeNum = this.hud.timeNum;
+      this.winGameSound.play();
+      this.sendGameScore();
       setTimeout(this.winGame.bind(this), 2500);
     });
 
@@ -355,6 +375,10 @@ class GameScene extends Phaser.Scene {
   }
   // Generates the in-game map/level
   addMap() {
+    this.gameOverScene = game.scene.keys.GameOverScene;
+    this.gameOverScene.scene.stop();
+    this.winGameScene = game.scene.keys.WinGameScene;
+    this.winGameScene.scene.stop();
     this.map = this.make.tilemap({ key: 'tileset' });
     const groundTiles = this.map.addTilesetImage('tileset', 'tile-sheet');
     const groundLayer = this.map.createStaticLayer('Ground', groundTiles);
@@ -484,49 +508,49 @@ class GameScene extends Phaser.Scene {
   }
   // Triggers transition to gameOver scene, ending current game
   gameOver() {
-    const hud = game.scene.scenes[1];
-    const gameOverScene = game.scene.scenes[2];
-    const gameScene = game.scene.scenes[0];
+    const hud = game.scene.keys.HudScene;
+    const gameOverScene = game.scene.keys.GameOverScene;
+    const gameScene = game.scene.keys.GameScene;
     hud.gameTime.destroy();
     hud.scene.stop();
     gameScene.scene.stop();
-    game.scene.start(gameOverScene);
+    this.isGameOver = true;
+    gameOverScene.scene.start();
+    this.gameOverSound.play();
   }
 
   async sendGameScore() {
-    this.totalTime = this.hud.currTime;
-    this.timeNum = this.hud.timeNum;
     const res = await axios.get(`/users/${this.username}/details`);
     this.userData = res.data;
     this.totalCompletions = this.userData.total_completions;
     this.totalCompletions++;
     if (!this.bestTime) {
-      this.bestTime = this.timeNum;
-      this.personalBest = this.totalTime;
+      this.bestTime = this.winTimeNum;
+      this.personalBest = this.winTime;
     }
-    if (this.timeNum < this.bestTime) {
-      this.bestTime = this.timeNum;
-      this.personalBest = this.totalTime;
+    if (this.winTimeNum < this.bestTime) {
+      this.bestTime = this.winTimeNum;
+      this.personalBest = this.winTime;
     }
     await axios.post('/wingame', {
       best_time: this.bestTime,
       personal_best: this.personalBest,
       total_completions: this.totalCompletions,
-      completion_time: this.timeNum,
-      print_time: this.totalTime,
+      completion_time: this.winTimeNum,
+      print_time: this.winTime,
     });
   }
 
   // Triggers transition to winGame scene, ending current game
   winGame() {
-    const hud = game.scene.scenes[1];
-    const winGameScene = game.scene.scenes[3];
-    const gameScene = game.scene.scenes[0];
-    this.sendGameScore();
+    const hud = game.scene.keys.HudScene;
+    const winGameScene = game.scene.keys.WinGameScene;
+    const gameScene = game.scene.keys.GameScene;
     hud.gameTime.destroy();
     hud.scene.stop();
+    this.isGameWon = true;
     gameScene.scene.stop();
-    game.scene.start(winGameScene);
+    winGameScene.scene.start();
   }
 
   update(time, delta) {
@@ -544,6 +568,51 @@ class GameScene extends Phaser.Scene {
         }
       }
     }
+
+    if (this.hud) {
+      // Triggers toggle of on-screen inputs for Left/Right/Up - default is ON
+      if (Phaser.Input.Keyboard.JustDown(this.shiftKey)) {
+        if (this.sound.volume > 0) {
+          this.sound.setVolume(0);
+          this.hud.soundButton.destroy();
+          this.hud.soundButton = this.hud.add.image(
+            70,
+            150,
+            'sound-off-button'
+          );
+          this.hud.soundButton.alpha = 0.6;
+          this.hud.soundButton.setInteractive();
+        } else {
+          this.sound.setVolume(1);
+          this.hud.soundButton.destroy();
+          this.hud.soundButton = this.hud.add.image(70, 150, 'sound-on-button');
+          this.hud.soundButton.alpha = 0.6;
+          this.hud.soundButton.setInteractive();
+        }
+      }
+    }
+    if (this.hud.soundButton) {
+      this.hud.soundButton.on('pointerdown', () => {
+        if (this.sound.volume > 0) {
+          this.sound.setVolume(0);
+          this.hud.soundButton.destroy();
+          this.hud.soundButton = this.hud.add.image(
+            70,
+            150,
+            'sound-off-button'
+          );
+          this.hud.soundButton.alpha = 0.6;
+          this.hud.soundButton.setInteractive();
+        } else {
+          this.sound.setVolume(1);
+          this.hud.soundButton.destroy();
+          this.hud.soundButton = this.hud.add.image(70, 150, 'sound-on-button');
+          this.hud.soundButton.alpha = 0.6;
+          this.hud.soundButton.setInteractive();
+        }
+      });
+    }
+
     // In place to keep in-game health from going above 100
     if (this.gameHealth > 100) {
       this.gameHealth = 100;
@@ -556,9 +625,6 @@ class GameScene extends Phaser.Scene {
     this.totalTime = this.hud.currTime;
     this.timeNum = this.hud.timeNum;
     // Triggers gameOver transition if gameHealth reaches zero
-    if (this.gameHealth === 0) {
-      setTimeout(this.gameOver, 1500);
-    }
     // Bottom view of camera, making a smooth transition when hero is hurt and keeping camera from following hero beyond the point where he is off the map
     const bottomOfView = this.cameras.main.getWorldPoint(
       0,

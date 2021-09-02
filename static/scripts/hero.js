@@ -20,6 +20,10 @@ class Hero extends Phaser.GameObjects.Sprite {
     this.wKey = scene.wKey;
     this.spaceKey = scene.cursorKeys.space;
     this.input = {};
+    this.jumpSound = scene.jumpSound;
+    this.hurtSound = scene.hurtSound;
+    this.healthPackSound = scene.healthPackSound;
+    this.winSound = scene.winSound;
     // Movement state machine
     this.movement();
     // Animation state machine
@@ -148,6 +152,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     if (this.moveState.can('hurt')) {
       this.moveState.hurt();
       this.animationState.hurt();
+      this.hurtSound.play();
       this.emit('hurt');
     }
   }
@@ -172,8 +177,8 @@ class Hero extends Phaser.GameObjects.Sprite {
   }
 
   preUpdate(time, delta) {
-    if (game.scene.scenes[1]) {
-      this.hud = game.scene.scenes[1];
+    if (game.scene.keys.HudScene) {
+      this.hud = game.scene.keys.HudScene;
     }
     // Input logic for on-screen buttons - left arrow, right arrow, and up arrow
     // Input Logic for Left On-Screen Button
@@ -241,6 +246,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     if (this.input.pressedJump && this.body.onFloor()) {
       // Sets Upward Vertical velocity to 400 pixels per second
       this.body.setVelocityY(-400);
+      this.jumpSound.play();
     }
     // Determining which movement state is currently valid
     for (let transition of this.moveState.transitions()) {

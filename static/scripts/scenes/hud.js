@@ -29,7 +29,7 @@ class HudScene extends Phaser.Scene {
       'right-cap-shadow',
       '../../assets/healthbar/barHorizontal_shadow_right.png'
     );
-    // Arrow Buttons courtesy of https://publicdomainvectors.org/en/open-source-clipart-icons
+    // Arrow and Sound Buttons courtesy of https://publicdomainvectors.org/en/open-source-clipart-icons
     this.load.image('left-button', '../../assets/gamepad/left-arrow-orig.png');
     this.load.image(
       'right-button',
@@ -37,16 +37,20 @@ class HudScene extends Phaser.Scene {
     );
     this.load.image('up-button', '../../assets/gamepad/up-arrow-orig.png');
     this.load.image(
-      'empty-button',
-      '../../assets/buttons/greenbutton-260x65.png'
-    );
-    this.load.image(
       'time-button',
       '../../assets/buttons/blue-button-210x63.png'
     );
     this.load.image(
       'user-button',
       '../../assets/buttons/yellowbutton-350x60.png'
+    );
+    this.load.image(
+      'sound-on-button',
+      '../../assets/buttons/sound-on-100px.png'
+    );
+    this.load.image(
+      'sound-off-button',
+      '../../assets/buttons/sound-off-100px.png'
     );
   }
 
@@ -60,16 +64,9 @@ class HudScene extends Phaser.Scene {
     this.leftButton = this.add.image(240, 820, 'left-button');
     this.rightButton = this.add.image(750, 820, 'right-button');
     this.upButton = this.add.image(1650, 820, 'up-button');
-    // Allows toggle of display of on-screen Arrow Buttons - default is ON
-    this.toggleButton = this.add.image(130, 75, 'empty-button');
-    this.toggleButtonText = this.add
-      .text(130, 75, 'Toggle Touch Buttons', {
-        fontSize: 18,
-        fill: '#000000',
-      })
-      .setOrigin(0.5);
-    this.toggleButton.alpha = 0.7;
-    this.toggleButtonText.alpha = 1;
+    this.soundButton = this.add.image(70, 150, 'sound-on-button');
+    this.soundButton.alpha = 0.6;
+    this.soundButton.setInteractive();
     // Provides translucency to Touch Input Buttons to improve visibility of in-game level and user experience
     this.leftButton.alpha = 0.17;
     this.rightButton.alpha = 0.17;
@@ -86,8 +83,6 @@ class HudScene extends Phaser.Scene {
     this.leftButton.setInteractive();
     this.rightButton.setInteractive();
     this.upButton.setInteractive();
-    this.toggleButton.setInteractive();
-    this.toggleButtonText.setInteractive();
     const y = 24;
     const x = 10;
     // background shadow - source of code is from https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/
@@ -130,7 +125,7 @@ class HudScene extends Phaser.Scene {
     this.userButton = this.add.image(1550, 35, 'user-button').setOrigin(0, 0.5);
     this.userButton.alpha = 0.8;
     this.userNameText = this.add
-      .text(1650, 35, username, {
+      .text(1620, 35, username, {
         fontSize: 22,
         fill: '#000000',
       })
@@ -161,7 +156,6 @@ class HudScene extends Phaser.Scene {
     this.rightButton.disableInteractive();
     this.upButton.visible = false;
     this.upButton.disableInteractive();
-    this.toggleButtonText.setText('Show Touch Buttons');
   }
   // Returns On-Screen Arrow Inputs to Visibility
   showTouchButtons() {
@@ -171,7 +165,6 @@ class HudScene extends Phaser.Scene {
     this.rightButton.setInteractive();
     this.upButton.visible = true;
     this.upButton.setInteractive();
-    this.toggleButtonText.setText('Hide Touch Buttons');
   }
   // Source for Timer Method: https://www.html5gamedevs.com/topic/1870-in-game-timer/
   updateTimer() {
