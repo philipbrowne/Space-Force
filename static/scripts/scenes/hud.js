@@ -124,12 +124,10 @@ class HudScene extends Phaser.Scene {
     this.timeText.alpha = 1;
     this.userButton = this.add.image(1550, 35, 'user-button').setOrigin(0, 0.5);
     this.userButton.alpha = 0.8;
-    this.userNameText = this.add
-      .text(1620, 35, username, {
-        fontSize: 22,
-        fill: '#000000',
-      })
-      .setOrigin(0, 0.5);
+    this.userNameText = this.add.text(1620, 25, username, {
+      fontSize: 22,
+      fill: '#000000',
+    });
   }
   // Updates Health Bar based on a percentage value - we are using gameHealth from game.js in conjunction with this UI element
   setMeterPercentage(percent = 1, duration = 1000) {
