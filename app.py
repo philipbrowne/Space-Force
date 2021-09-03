@@ -137,7 +137,7 @@ def delete_user(username):
 @app.route('/rankings')
 def get_high_scores():
     """Returns top scores from game sorted by shortest completion time"""
-    scores = Score.query.order_by(Score.completion_time).limit(10).all()
+    scores = Score.query.order_by(Score.print_time).limit(10).all()
     return render_template('rankings.html', scores=scores)
 
 
