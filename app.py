@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request, redirect, session, flash, jsonify, abort, send_from_directory, url_for, json, current_app as app
-# import Flask_JSON
-# from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User, Score
 import json
 from forms import NewUserForm, UserLoginForm
@@ -11,7 +9,6 @@ app = Flask(__name__, static_url_path='',
             static_folder='static',
             template_folder='templates')
 
-# json = FlaskJSON(app)
 URI = os.environ.get('DATABASE_URL', 'postgresql:///spaceforce-db')
 if URI.startswith("postgres://"):
     URI = URI.replace("postgres://", "postgresql://", 1)
