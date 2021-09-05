@@ -79,7 +79,8 @@ def register_new_user():
         try:
             db.session.commit()
         except IntegrityError:
-            form.username.errors = ['Sorry - that username is already taken!']
+            form.username.errors = ['Sorry - this username or email address is already registered']
+            form.email.errors = ['Sorry - this username or email address is already registered']
             return render_template('register.html', form=form)
         session['username'] = new_user.username
         flash(f'Welcome {new_user.username}!', 'success')
