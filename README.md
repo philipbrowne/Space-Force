@@ -42,8 +42,6 @@ The game is live [**here**](https://space-force-game.herokuapp.com/).
 
 Requirements: Python, Flask, Postgresql
 
-
-
 **To deploy locally using Python 3.711, pip, and Flask - Initialize PostgreSQL in your operating system and run the following commands in your terminal:**
 
 **Clone Repository and Enter Directory of Repo**
