@@ -40,17 +40,35 @@ The game is live [**here**](https://space-force-game.herokuapp.com/).
 
 ## Local Deployment
 
-**To deploy locally using Python 3.711, pip, and Flask - run the following commands in your terminal:**
+Requirements: Python, Flask, Postgresql
+
+
+
+**To deploy locally using Python 3.711, pip, and Flask - Initialize PostgreSQL in your operating system and run the following commands in your terminal:**
+
+**Clone Repository and Enter Directory of Repo**
 
 `git clone https://github.com/philipbrowne/Space-Force`
 
 `cd Space-Force`
+
+**Create and Activate Python Virtual Environment**
 
 `python3.7 -m venv venv`
 
 `source venv/bin/activate`
 
 `pip install -r requirements.txt`
+
+**To Set Up Our Local Database:**
+
+`createdb spaceforce-db`
+
+``python3.7 seed.py`
+
+**Run Application With Flask**
+
+`export FLASK_ENV=production`
 
 `export FLASK_RUN_PORT=8000`
 
