@@ -1,5 +1,3 @@
 {% extends 'base.html' %} {% block content %} <h1 class="text-warning fs-2">Login</h1>
-<p class="lead">Please enter your username and password. This application is still in beta and not fully secure. <b>Do
-        not use real emails or passwords.</b></p> {% include 'form.j2' %} <button type="submit"
-    class="btn btn-success btn-large">Login</button>
-</form> {% endblock %}
+<p class="lead">{% include 'form.j2' %} <button type="submit" class="btn btn-success btn-large">Login</button>
+    </form> {% endblock %}
