@@ -1,3 +1,8 @@
 {% extends 'base.html' %} {% block content %} <h1 class="text-warning fs-2">Login</h1>
-<p class="lead">{% include 'form.j2' %} <button type="submit" class="btn btn-success btn-large">Login</button>
-    </form> {% endblock %}
+<p class="lead">
+<form method="POST" id="login-form"> {{ form.hidden_tag() }} {% for field in form if field.widget.input_type != 'hidden'
+    %} <div class="form-group"> {{field.label}} {{field(class_="form-control")}} {% for error in field.errors %} <span
+            class="form-text text-danger">{{error}}</span> {% endfor %} </div> {% endfor %} <div class="mt-1"><button
+            type="submit" class="btn btn-success ">Login</button><span class="btn btn-primary  mx-2 my-1"
+            id="demo-login">Login as Demo User</span></div>
+</form> {% endblock %}

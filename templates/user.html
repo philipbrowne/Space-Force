@@ -89,12 +89,11 @@
                                 <li class="list-group-item bg-dark" id="user-email"><span
                                         class="text-warning spacefont">Email: </span><a href="mailto:{{user.email}}"
                                         class="link-primary">{{user.email}}</a>
-                                </li>
-                                <form action="/users/{{user.username}}/delete" method="POST" style="display: inline"
+                                </li> {% if session['username'] != 'TestUser' %} <form
+                                    action="/users/{{user.username}}/delete" method="POST" style="display: inline"
                                     class="mx-2">
                                     <button class="btn btn-danger btn-large mt-2">Delete User</button>
-                                </form>
-                                </li>
+                                </form> {% endif %} </li>
                             </ul>
                         </div>
                     </div> {% if session['username'] %} <div class="my-3 d-flex justify-content-center"><a href="/game"
