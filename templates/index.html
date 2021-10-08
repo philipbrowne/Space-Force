@@ -17,9 +17,11 @@
                         Mintbean Star <i class="far fa-star mx-1 text-warning"></i> to help him find his way home!</p>
             </div> {% if session['username'] %} <div class="my-1"><a href="/game"
                     class="btn btn-outline-warning btn-lg px-5">Start Game</a>
-            </div> {% else %} <div class="my-1"><a href="/register" class="btn btn-outline-warning btn-lg px-5">Register
-                    to Play</a>
-            </div> {% endif %}
+            </div> {% else %} <p>Register or Login to play. Note: If you do not wish to register, you can easily log in
+                as a Demo User via the <span class="text-primary">Login as Demo User</span> function on the <a
+                    href="/login">Login</a> Page! </p>
+            <div class="my-1"><a href="/register" class="btn btn-outline-warning btn-lg px-5">Register to Play</a>
+                <a href="/login" class="btn btn-outline-primary btn-lg px-5 mx-2">Login</a> {% endif %}
     </section>
 </div>
 <!-- Story section End -->

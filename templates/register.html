@@ -1,3 +1,7 @@
-{% extends 'base.html' %} {% block content %}<h1 class="text-warning fs-2">Registration</h1> {% include 'form.j2' %}
-<button type="submit" class="btn btn-success btn-large">Register</button>
-</form> {% endblock %}
+{% extends 'base.html' %} {% block content %}<h1 class="text-warning fs-2">Registration</h1>
+<div>
+    <p>Register via this form below.<br>Note: If you do not wish to register, you can easily log in as a Demo User via
+        the <span class="text-primary">Login as Demo User</span> function on the <a href="/login">Login</a> Page! </p>{%
+    include 'form.j2' %} <button type="submit" class="btn btn-success btn-large">Register</button>
+    </form>
+</div> {% endblock %}
